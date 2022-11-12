@@ -40,3 +40,43 @@ class Knapsack:
 
         # generate (1, 0)
         n0 = graph.Node(0, self.cave[0])
+        queue.enqueue(n0)
+
+        # sink node
+        sink = graph.Node(0, graph.Item("sink", 0, 0))
+
+        # create an empty graph
+        g = graph.Graph()
+
+        while queue:
+            current: graph.Node = queue.dequeue()  # type: ignore
+
+            #######################
+            # CONSIDER NEXT LAYER #
+            #######################
+
+            self._new_nodes(current)
+
+    def _new_nodes(self, current) -> list[graph.Node]:
+        """returns new nodes to add to the graph
+        HAS NO EFFECT ON GRAPH
+
+        """
+        # get next item in cave
+        next_index = self.cave.index(current.item_considered) + 1
+
+        next_item: graph.Item = self.cave[next_index]
+        non_taken = graph.Node(current.current_weight, next_item)
+
+        taken = graph.Node(current.current_weight + next_item.weight, next_item)
+        handle_taken = False if taken.current_weight > self.capacity else True
+        # flag to see if we should add taken node to graph - no action needed if False
+        # don't need to check for untaken because no weight is added
+        ##################
+        # ADD NEXT LAYER #
+        ##################
+        print(
+            f"current: {current!r}\nnon-taken: {non_taken!r}\ntaken{taken!r}\n\nTaking: {handle_taken}"
+        )
+
+        return [non_taken, taken] if handle_taken else [non_taken]

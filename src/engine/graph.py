@@ -40,6 +40,9 @@ class Node:
     def __hash__(self):
         return hash(f"{self.current_weight}, {self.item_considered}")
 
+    def __repr__(self):
+        return f"Node({self.current_weight}, {self.item_considered})"
+
 
 @dataclass
 class Edge:
@@ -51,16 +54,16 @@ class Edge:
 class Queue:
     """For use with nodes or edges"""
 
-    queue: list = field(default_factory=lambda: [])  # type: ignore
+    _queue: list = field(default_factory=lambda: [])  # type: ignore
 
     def enqueue(self, item: Edge | Node) -> None:
-        self.queue.append(item)
+        self._queue.append(item)
 
     def dequeue(self) -> Edge | Node:
-        return self.queue.pop(0)
+        return self._queue.pop(0)
 
     def __bool__(self):
-        return bool(self.queue)
+        return bool(self._queue)
 
 
 class Graph:
@@ -75,7 +78,9 @@ class Graph:
             self.items: list[Item] = []
 
         # initialise empty adjacency list
-        self.adj_list: dict[Item, list[Edge]] = {item: [] for item in items}
+        self.adj_list: dict[Item, list[Edge]] = (
+            {item: [] for item in items} if items else {}
+        )
 
     def add_edge(self, current: Node, next: Node, value: int) -> None:
         """Add edge to the graph"""
