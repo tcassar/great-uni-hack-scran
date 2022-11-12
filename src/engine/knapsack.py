@@ -18,6 +18,32 @@ class Knapsack:
         """
         self.cave: list[graph.Item] = cave
         self.capacity: int = capacity
+        self.cave_len = len(self.cave)
+
+    def _next_nodes(self, current) -> tuple[list[graph.Node], int] | list:
+        """Get a list of the nodes we can add to graph and the weights needed on their edge"""
+
+        # check for last layer, if so return empty list
+        if (next_index := self.cave.index(current.item_considered) + 1) > self.cave_len:
+            return []
+
+        if next_index < self.cave_len:
+            next_item = self.cave[next_index]
+        else:
+            next_item = graph.Item('final', 0, 0)
+            self.cave.append(next_item)
+
+        nodes: list[tuple[graph.Node, int]] = [(graph.Node(current.current_weight, next_item), 0)]
+        new_weight = current.current_weight + current.item_considered.weight
+        if new_weight <= self.capacity:
+            nodes.append((graph.Node(new_weight, next_item), current.item_considered.value))
+        else:
+            print('over capacity')
+
+        return nodes
+
+
+
 
     def build_graph(self):
         """Build the graph used to determine the best selection of items
@@ -36,47 +62,26 @@ class Knapsack:
                 else, we are in final layer thus create edge from nodes to sink node
         """
 
-        queue = graph.Queue()
-
-        # generate (1, 0)
+        # create starting node, sink node. add them to graph
         n0 = graph.Node(0, self.cave[0])
-        queue.enqueue(n0)
+        sink = graph.Node(-1, graph.Item("sink", 0, 0))
 
-        # sink node
-        sink = graph.Node(0, graph.Item("sink", 0, 0))
+        g = graph.Graph([n0.item_considered, sink.item_considered])
+        q = graph.Queue([n0])
 
-        # create an empty graph
-        g = graph.Graph()
+        while q:
+            current = q.dequeue()
+            if not (next_nodes := self._next_nodes(current)):
+                # means we are in the last layer and thus connect current to sink
+                g.add_edge(current, sink, 0)
+                # dont queue
+            else:
+                for node, edge_weight in next_nodes:
+                    g.add_node(node)
+                    g.add_edge(current, node, edge_weight)
+                    q.enqueue(node)
+                    graph.dot.render(directory="./graphs/", filename=f"gen_graph.svg")
 
-        while queue:
-            current: graph.Node = queue.dequeue()  # type: ignore
+            graph.dot.render(directory="./graphs/", filename=f"gen_graph.svg")
 
-            #######################
-            # CONSIDER NEXT LAYER #
-            #######################
 
-            self._new_nodes(current)
-
-    def _new_nodes(self, current) -> list[graph.Node]:
-        """returns new nodes to add to the graph
-        HAS NO EFFECT ON GRAPH
-
-        """
-        # get next item in cave
-        next_index = self.cave.index(current.item_considered) + 1
-
-        next_item: graph.Item = self.cave[next_index]
-        non_taken = graph.Node(current.current_weight, next_item)
-
-        taken = graph.Node(current.current_weight + next_item.weight, next_item)
-        handle_taken = False if taken.current_weight > self.capacity else True
-        # flag to see if we should add taken node to graph - no action needed if False
-        # don't need to check for untaken because no weight is added
-        ##################
-        # ADD NEXT LAYER #
-        ##################
-        print(
-            f"current: {current!r}\nnon-taken: {non_taken!r}\ntaken{taken!r}\n\nTaking: {handle_taken}"
-        )
-
-        return [non_taken, taken] if handle_taken else [non_taken]

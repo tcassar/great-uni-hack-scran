@@ -33,7 +33,7 @@ class Node:
         self.item_considered: Item = item_considered
 
         dot.node(
-            f"{self.item_considered.label}",
+            f"{self.item_considered.label}{self.current_weight}",
             f"{self.item_considered.label}, {self.current_weight}",
         )
 
@@ -87,15 +87,12 @@ class Graph:
 
         edge = Edge(next, -1 * value)
 
-        if edge not in (edges := self.adj_list[current.item_considered]):
-            edges.append(edge)
-            dot.edge(
-                f"{current.item_considered.label}",
-                f"{next.item_considered.label}",
-                f"{-1 * value}",
-            )
-        else:
-            print(f"Edge {edge} already exists")
+        edges = self.adj_list[current.item_considered]
+        edges.append(edge)
+        dot.edge(
+            f"{current.item_considered.label}{current.current_weight}",
+            f"{next.item_considered.label}{next.current_weight}",
+            f"{-1 * value}")
 
     def neighbours(self, node: Node) -> list[Node]:
         """return the neighbours of a node"""
