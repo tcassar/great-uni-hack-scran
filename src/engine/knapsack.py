@@ -30,20 +30,21 @@ class Knapsack:
         if next_index < self.cave_len:
             next_item = self.cave[next_index]
         else:
-            next_item = graph.Item('final', 0, 0)
+            next_item = graph.Item("final", 0, 0)
             self.cave.append(next_item)
 
-        nodes: list[tuple[graph.Node, int]] = [(graph.Node(current.current_weight, next_item), 0)]
+        nodes: list[tuple[graph.Node, int]] = [
+            (graph.Node(current.current_weight, next_item), 0)
+        ]
         new_weight = current.current_weight + current.item_considered.weight
         if new_weight <= self.capacity:
-            nodes.append((graph.Node(new_weight, next_item), current.item_considered.value))
+            nodes.append(
+                (graph.Node(new_weight, next_item), current.item_considered.value)
+            )
         else:
-            print('over capacity')
+            print("over capacity")
 
         return nodes
-
-
-
 
     def build_graph(self):
         """Build the graph used to determine the best selection of items
@@ -83,5 +84,3 @@ class Knapsack:
                     graph.dot.render(directory="./graphs/", filename=f"gen_graph.svg")
 
             graph.dot.render(directory="./graphs/", filename=f"gen_graph.svg")
-
-

@@ -1,8 +1,7 @@
 from unittest import TestCase
-
-import graphviz.dot
-
 from src.engine.knapsack import *
+
+# TODO: write tests
 
 
 class TestKnapsack(TestCase):
@@ -24,7 +23,7 @@ class TestKnapsack(TestCase):
                     Node(0, Item(label="crystal", weight=2, value=4)),
                     Node(2, Item(label="crystal", weight=2, value=4)),
                 ]
-            ]
+            ],
         )
 
     def test_build_graph(self):
@@ -68,5 +67,3 @@ class TestKnapsack(TestCase):
 
         self.kp.build_graph()
         graph.dot.render(directory="./graphs/", filename=f"gen_graph.svg")
-
-

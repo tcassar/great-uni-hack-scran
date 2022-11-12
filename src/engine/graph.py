@@ -92,7 +92,8 @@ class Graph:
         dot.edge(
             f"{current.item_considered.label}{current.current_weight}",
             f"{next.item_considered.label}{next.current_weight}",
-            f"{-1 * value}")
+            f"{-1 * value}",
+        )
 
     def neighbours(self, node: Node) -> list[Node]:
         """return the neighbours of a node"""
