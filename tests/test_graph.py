@@ -38,3 +38,6 @@ class TestGraph(TestCase):
                 )
             ],
         )
+
+        print(dot.source)
+        dot.render(directory="./graphs")
