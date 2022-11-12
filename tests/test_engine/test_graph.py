@@ -22,7 +22,7 @@ class TestGraph(TestCase):
 
     def tearDown(self) -> None:
         print(f'rendering to {self.shortDescription()}.svg')
-        dot.render(directory='./graphs', outfile=f'{self.shortDescription()}.svg')
+        dot.render(directory='./graphs/', filename=f'{self.shortDescription()}.svg')
 
     def test_add_edge(self):
         """
