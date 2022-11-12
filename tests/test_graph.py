@@ -45,9 +45,6 @@ class TestGraph(TestCase):
             ],
         )
 
-        print(dot.source)
-        dot.render(directory="./graphs")
-
     def test_neighbours(self):
         """neighbours
         checks that neighbours list is returned properly"""
@@ -68,3 +65,21 @@ class TestGraph(TestCase):
             self.graph.add_edge(n1, n3, 0)
 
             self.assertEqual(self.graph.neighbours(n1), [n2, n3])
+
+    def test_edges_from(self) -> None:
+        """edges_from
+        checks that we get edges from each node"""
+
+        n1 = Node(0, self.statue)
+        n2 = Node(4, self.crystal)  # having taken statue
+
+        with self.subTest('no edges'):
+            print(self.graph.adj_list)
+            self.assertEqual(self.graph.edges_from(n1), [])
+
+        with self.subTest('edge'):
+            self.graph.add_edge(n1, n2, 10)
+            self.assertEqual(self.graph.edges_from(n1), [Edge(n2, -10)])
+
+
+

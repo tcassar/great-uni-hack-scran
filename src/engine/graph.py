@@ -61,8 +61,14 @@ class Graph:
 
     def add_edge(self, current: Node, next: Node, value: int) -> None:
         """ Add edge to the graph """
-        self.adj_list[current.item_considered].append(Edge(next, -1 * value))
-        dot.edge(f"{current.item_considered.label}", f"{next.item_considered.label}", f"{-1 * value}")
+
+        edge = Edge(next, -1 * value)
+
+        if edge not in (edges := self.adj_list[current.item_considered]):
+            edges.append(edge)
+            dot.edge(f"{current.item_considered.label}", f"{next.item_considered.label}", f"{-1 * value}")
+        else:
+            print(f'Edge {edge} already exists')
 
     def neighbours(self, node: Node) -> list[Node]:
         """ return the neighbours of a node """
@@ -71,4 +77,5 @@ class Graph:
 
     def edges_from(self, node: Node) -> list[Edge]:
         """ return list of edges from a node"""
+        return [edge for edge in self.adj_list[node.item_considered]]
 

@@ -1,4 +1,6 @@
 .idea
-venv
+venv/
 tests/test_engine/graphs
 *.svg
+*/__pycache__/
+*/.mypy_cache
