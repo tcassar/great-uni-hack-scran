@@ -20,8 +20,14 @@ class TestGraph(TestCase):
         # initialise graph
         self.graph = Graph(self.items, self.CAPACITY)
 
+    def tearDown(self) -> None:
+        print(f'rendering to {self.shortDescription()}.svg')
+        dot.render(directory='./graphs', outfile=f'{self.shortDescription()}.svg')
+
     def test_add_edge(self):
-        """Checks that add_edge results in edge being added"""
+        """
+        add_edge
+        Checks that add_edge results in edge being added"""
         node = Node(0, self.statue)
 
         self.graph.add_edge(node, Node(4, self.crystal), node.item_considered.value)
@@ -41,3 +47,24 @@ class TestGraph(TestCase):
 
         print(dot.source)
         dot.render(directory="./graphs")
+
+    def test_neighbours(self):
+        """neighbours
+        checks that neighbours list is returned properly"""
+
+        # create 3 nodes
+        n1 = Node(0, self.statue)
+        n2 = Node(4, self.crystal)  # having taken statue
+        n3 = Node(0, self.crystal)  # having skipped statue
+
+        with self.subTest('no neighbours'):
+            print(self.graph.adj_list)
+            self.assertEqual(self.graph.neighbours(n1), [])
+
+        with self.subTest('with neighbours'):
+
+            # create edges
+            self.graph.add_edge(n1, n2, 10)
+            self.graph.add_edge(n1, n3, 0)
+
+            self.assertEqual(self.graph.neighbours(n1), [n2, n3])

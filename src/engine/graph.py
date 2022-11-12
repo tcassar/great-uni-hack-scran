@@ -29,7 +29,7 @@ class Node:
     """Nodes that store state; tracks current value of knapsack
     and item being considered"""
 
-    def __init__(self, current_weight, item_considered):
+    def __init__(self, current_weight: int, item_considered: Item):
         self.current_weight: int = current_weight
         self.item_considered: Item = item_considered
 
@@ -63,4 +63,12 @@ class Graph:
         """ Add edge to the graph """
         self.adj_list[current.item_considered].append(Edge(next, -1 * value))
         dot.edge(f"{current.item_considered.label}", f"{next.item_considered.label}", f"{-1 * value}")
+
+    def neighbours(self, node: Node) -> list[Node]:
+        """ return the neighbours of a node """
+        edge: Edge
+        return [edge.next_node for edge in self.adj_list[node.item_considered]]
+
+    def edges_from(self, node: Node) -> list[Edge]:
+        """ return list of edges from a node"""
 
