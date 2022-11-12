@@ -94,3 +94,15 @@ class TestGraph(TestCase):
 
         graph.add_node(n1)
         self.assertTrue(graph.node_exists(n1))
+
+    def test_is_edge(self) -> None:
+        """is_edge
+        checks that is_edge returns true iff there is an edge"""
+
+        self.assertFalse(
+            self.graph.is_edge(Node(0, self.statue), Node(0, self.crystal))
+        )
+
+        self.graph.add_edge(Node(0, self.statue), Node(0, self.crystal), 4)
+
+        self.assertTrue(self.graph.is_edge(Node(0, self.statue), Node(0, self.crystal)))

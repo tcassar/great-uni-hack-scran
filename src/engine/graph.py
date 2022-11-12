@@ -110,3 +110,18 @@ class Graph:
 
     def node_exists(self, node: Node):
         return True if node.item_considered in self.adj_list.keys() else False
+
+    def is_edge(self, src_node: Node, dest_node: Node) -> bool:
+        """checks for edge between nodes s and d.
+        directional - given s->d, is_edge(s, d) returns True but is_edge(d, s)
+        returns False"""
+
+        return (
+            True
+            if dest_node.item_considered
+            in [
+                edge.next_node.item_considered
+                for edge in self.adj_list[src_node.item_considered]
+            ]
+            else False
+        )
