@@ -104,5 +104,12 @@ class TestGraph(TestCase):
         )
 
         self.graph.add_edge(Node(0, self.statue), Node(0, self.crystal), 4)
+        print(self.graph.is_edge(Node(0, self.statue), Node(0, self.crystal)))
 
         self.assertTrue(self.graph.is_edge(Node(0, self.statue), Node(0, self.crystal)))
+
+    def test_edge_weight(self):
+        self.graph.add_edge(Node(0, self.statue), Node(0, self.crystal), 4)
+        self.assertEqual(
+            self.graph.edge_weight(Node(0, self.statue), Node(0, self.crystal)), -4
+        )

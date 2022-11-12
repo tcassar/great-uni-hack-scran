@@ -41,8 +41,6 @@ class Knapsack:
             nodes.append(
                 (graph.Node(new_weight, next_item), current.item_considered.value)
             )
-        else:
-            print("over capacity")
 
         return nodes
 

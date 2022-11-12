@@ -11,6 +11,10 @@ import graphviz
 dot = graphviz.Digraph(comment="scran graph")
 
 
+class EdgeDoesNotExistException(Exception):
+    """Edge does not exist"""
+
+
 @dataclass
 class Item:
     """Items being considered"""
@@ -111,7 +115,7 @@ class Graph:
     def node_exists(self, node: Node):
         return True if node.item_considered in self.adj_list.keys() else False
 
-    def is_edge(self, src_node: Node, dest_node: Node) -> bool:
+    def is_edge(self, src_node: Node, dest_node: Node) -> int:
         """checks for edge between nodes s and d.
         directional - given s->d, is_edge(s, d) returns True but is_edge(d, s)
         returns False"""
@@ -125,3 +129,11 @@ class Graph:
             ]
             else False
         )
+
+    def edge_weight(self, src: Node, dest: Node):
+        """returns the weight of an edge - raises error if it does not exist"""
+        if not self.is_edge(src, dest):
+            raise EdgeDoesNotExistException
+
+        else:
+            return -1 * dest.item_considered.value

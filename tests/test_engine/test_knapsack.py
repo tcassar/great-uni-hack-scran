@@ -67,7 +67,6 @@ class TestKnapsack(TestCase):
 
         """
 
-
         correct_dot = """// scran graph
 digraph {
 	statue0 [label="statue, 0"]
@@ -99,6 +98,6 @@ digraph {
 	final4 -> "sink-1" [label=0]
 }
 """
-        g: graph.Graph = self.kp.build_graph()
+        g: graph.Graph = self.kp.build_graph()  # type: ignore
         print(graph.dot.source)
         self.assertEqual(correct_dot, graph.dot.source)
