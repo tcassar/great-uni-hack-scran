@@ -76,6 +76,8 @@ class Graph:
 
     def __init__(self, items: list[Item] | None = None):
 
+        self.src: None | Node = None
+
         if items:
             self.items: list[Item] = items  # list of items that need consideration
         else:

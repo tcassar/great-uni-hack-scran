@@ -70,6 +70,8 @@ class Knapsack:
         g = graph.Graph([n0.item_considered, sink.item_considered])
         q = graph.Queue([n0])
 
+        g.src = n0  # set source node for DAG
+
         while q:
             current = q.dequeue()
             if not (next_nodes := self._next_nodes(current)):
