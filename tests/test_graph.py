@@ -34,7 +34,7 @@ class TestGraph(TestCase):
                         current_weight=4,
                         item_considered=Item(label="crystal", weight=2, value=4),
                     ),
-                    value=10,
+                    value=-10,
                 )
             ],
         )

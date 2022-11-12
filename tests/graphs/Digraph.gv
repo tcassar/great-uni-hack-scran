@@ -1,7 +1,7 @@
 // scran graph
 digraph {
-	fstatue [label="statue, 0"]
-	fcrystal [label="crystal, 4"]
-	statue -> crystal
-	fcrystal [label="crystal, 4"]
+	statue [label="statue, 0"]
+	crystal [label="crystal, 4"]
+	statue -> crystal [label=-10]
+	crystal [label="crystal, 4"]
 }

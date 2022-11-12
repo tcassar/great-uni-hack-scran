@@ -34,7 +34,7 @@ class Node:
         self.item_considered: Item = item_considered
 
         dot.node(
-            f"f{self.item_considered.label}",
+            f"{self.item_considered.label}",
             f"{self.item_considered.label}, {self.current_weight}",
         )
 
@@ -60,6 +60,7 @@ class Graph:
         self.adj_list: dict[Item, list[Edge]] = {item: [] for item in items}
 
     def add_edge(self, current: Node, next: Node, value: int) -> None:
-        """Add edge to the graph"""
-        self.adj_list[current.item_considered].append(Edge(next, value))
-        dot.edge(f"{current.item_considered.label}", f"{next.item_considered.label}")
+        """ Add edge to the graph """
+        self.adj_list[current.item_considered].append(Edge(next, -1 * value))
+        dot.edge(f"{current.item_considered.label}", f"{next.item_considered.label}", f"{-1 * value}")
+
