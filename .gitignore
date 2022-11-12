@@ -1,3 +1,4 @@
 .idea
 venv
 tests/test_engine/graphs
+*.svg
