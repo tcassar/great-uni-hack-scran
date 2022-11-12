@@ -1,7 +1,0 @@
-// scran graph
-digraph {
-	statue [label="statue, 0"]
-	crystal [label="crystal, 4"]
-	statue -> crystal [label=-10]
-	crystal [label="crystal, 4"]
-}
