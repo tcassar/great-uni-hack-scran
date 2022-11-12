@@ -46,7 +46,7 @@ class Knapsack:
 
         return nodes
 
-    def build_graph(self):
+    def build_graph(self) -> graph.Graph:
         """Build the graph used to determine the best selection of items
 
         Algorithm:
@@ -61,6 +61,8 @@ class Knapsack:
             3) if w+w_i < capacity, generate node and edge (i+1, w+1_i) - node for taking item i
             4) if i+1 <= len(items), queue (i+1, w) and (i+1, w+w_i).
                 else, we are in final layer thus create edge from nodes to sink node
+
+        fairly certain that this is O(2^n) where n is number of items in the cave but oh well
         """
 
         # create starting node, sink node. add them to graph
@@ -83,4 +85,4 @@ class Knapsack:
                     q.enqueue(node)
                     graph.dot.render(directory="./graphs/", filename=f"gen_graph.svg")
 
-            graph.dot.render(directory="./graphs/", filename=f"gen_graph.svg")
+        return g

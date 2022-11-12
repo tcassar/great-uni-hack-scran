@@ -1,5 +1,7 @@
 from unittest import TestCase
+
 from src.engine.knapsack import *
+
 
 # TODO: write tests
 
@@ -65,5 +67,38 @@ class TestKnapsack(TestCase):
 
         """
 
-        self.kp.build_graph()
-        graph.dot.render(directory="./graphs/", filename=f"gen_graph.svg")
+
+        correct_dot = """// scran graph
+digraph {
+	statue0 [label="statue, 0"]
+	"sink-1" [label="sink, -1"]
+	crystal0 [label="crystal, 0"]
+	crystal4 [label="crystal, 4"]
+	statue0 -> crystal0 [label=0]
+	statue0 -> crystal4 [label=-10]
+	pen0 [label="pen, 0"]
+	pen2 [label="pen, 2"]
+	crystal0 -> pen0 [label=0]
+	crystal0 -> pen2 [label=-4]
+	pen4 [label="pen, 4"]
+	crystal4 -> pen4 [label=0]
+	final0 [label="final, 0"]
+	final3 [label="final, 3"]
+	pen0 -> final0 [label=0]
+	pen0 -> final3 [label=-7]
+	final2 [label="final, 2"]
+	final5 [label="final, 5"]
+	pen2 -> final2 [label=0]
+	pen2 -> final5 [label=-7]
+	final4 [label="final, 4"]
+	pen4 -> final4 [label=0]
+	final0 -> "sink-1" [label=0]
+	final3 -> "sink-1" [label=0]
+	final2 -> "sink-1" [label=0]
+	final5 -> "sink-1" [label=0]
+	final4 -> "sink-1" [label=0]
+}
+"""
+        g: graph.Graph = self.kp.build_graph()
+        print(graph.dot.source)
+        self.assertEqual(correct_dot, graph.dot.source)
