@@ -18,11 +18,11 @@ class TestGraph(TestCase):
         self.CAPACITY = 5
 
         # initialise graph
-        self.graph = Graph(self.items, self.CAPACITY)
+        self.graph = Graph(self.items)
 
     def tearDown(self) -> None:
-        print(f'rendering to {self.shortDescription()}.svg')
-        dot.render(directory='./graphs/', filename=f'{self.shortDescription()}.svg')
+        print(f"rendering to {self.shortDescription()}.svg")
+        dot.render(directory="./graphs/", filename=f"{self.shortDescription()}.svg")
 
     def test_add_edge(self):
         """
@@ -54,11 +54,11 @@ class TestGraph(TestCase):
         n2 = Node(4, self.crystal)  # having taken statue
         n3 = Node(0, self.crystal)  # having skipped statue
 
-        with self.subTest('no neighbours'):
+        with self.subTest("no neighbours"):
             print(self.graph.adj_list)
             self.assertEqual(self.graph.neighbours(n1), [])
 
-        with self.subTest('with neighbours'):
+        with self.subTest("with neighbours"):
 
             # create edges
             self.graph.add_edge(n1, n2, 10)
@@ -73,13 +73,24 @@ class TestGraph(TestCase):
         n1 = Node(0, self.statue)
         n2 = Node(4, self.crystal)  # having taken statue
 
-        with self.subTest('no edges'):
+        with self.subTest("no edges"):
             print(self.graph.adj_list)
             self.assertEqual(self.graph.edges_from(n1), [])
 
-        with self.subTest('edge'):
+        with self.subTest("edge"):
             self.graph.add_edge(n1, n2, 10)
             self.assertEqual(self.graph.edges_from(n1), [Edge(n2, -10)])
 
+    def test_add_node(self) -> None:
+        """add_node
+        Checks that adding nodes works"""
 
+        n1 = Node(0, self.statue)
 
+        graph = Graph([])
+
+        with self.subTest("doesn't exist yet"):
+            self.assertFalse(graph.node_exists(n1))
+
+        graph.add_node(n1)
+        self.assertTrue(graph.node_exists(n1))

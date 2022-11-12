@@ -5,8 +5,7 @@ Items have weights (integers) and values
 Which items do we take to maximise value while being under a threshold weight?
 
 """
-
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 import graphviz
 
 dot = graphviz.Digraph(comment="scran graph")
@@ -48,34 +47,63 @@ class Edge:
     value: int
 
 
+@dataclass
+class Queue:
+    """For use with nodes or edges"""
+
+    queue: list = field(default_factory=lambda: [])  # type: ignore
+
+    def enqueue(self, item: Edge | Node) -> None:
+        self.queue.append(item)
+
+    def dequeue(self) -> Edge | Node:
+        return self.queue.pop(0)
+
+    def __bool__(self):
+        return bool(self.queue)
+
+
 class Graph:
     """Adjacency list representation of digraph
     Can only go forward along digraph (cannot traverse backwards)"""
 
-    def __init__(self, items: list[Item], capacity: int):
-        self.items = items  # list of items that need consideration
-        self.capacity = capacity
+    def __init__(self, items: list[Item] | None = None):
+
+        if items:
+            self.items: list[Item] = items  # list of items that need consideration
+        else:
+            self.items: list[Item] = []
 
         # initialise empty adjacency list
         self.adj_list: dict[Item, list[Edge]] = {item: [] for item in items}
 
     def add_edge(self, current: Node, next: Node, value: int) -> None:
-        """ Add edge to the graph """
+        """Add edge to the graph"""
 
         edge = Edge(next, -1 * value)
 
         if edge not in (edges := self.adj_list[current.item_considered]):
             edges.append(edge)
-            dot.edge(f"{current.item_considered.label}", f"{next.item_considered.label}", f"{-1 * value}")
+            dot.edge(
+                f"{current.item_considered.label}",
+                f"{next.item_considered.label}",
+                f"{-1 * value}",
+            )
         else:
-            print(f'Edge {edge} already exists')
+            print(f"Edge {edge} already exists")
 
     def neighbours(self, node: Node) -> list[Node]:
-        """ return the neighbours of a node """
+        """return the neighbours of a node"""
         edge: Edge
         return [edge.next_node for edge in self.adj_list[node.item_considered]]
 
     def edges_from(self, node: Node) -> list[Edge]:
-        """ return list of edges from a node"""
+        """return list of edges from a node"""
         return [edge for edge in self.adj_list[node.item_considered]]
 
+    def add_node(self, node: Node):
+        """Adds node to graph with no edges"""
+        self.adj_list[node.item_considered] = []
+
+    def node_exists(self, node: Node):
+        return True if node.item_considered in self.adj_list.keys() else False
