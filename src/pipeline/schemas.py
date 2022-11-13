@@ -92,6 +92,16 @@ class Recipe:
             else -1
         )
 
+    def push_recipe(self):
+        cursor.execute("""INSERT INTO recipes (name) VALUES (?)""", [self.name])
+        self.id = cursor.execute("""SELECT id FROM recipes WHERE name = ?""", [self.name]).fetchone()[0]
+
+        for ingredient in self.ingredients:
+            cursor.execute("""INSERT INTO ingredient_recipie_link 
+            (recipe_id, ingredient_id, mass) VALUES (?, ?, ?)""", [self.id, ingredient.id, ingredient.mass])
+
+        con.commit()
+
 
 @dataclass
 class CookBook:
