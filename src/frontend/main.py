@@ -17,31 +17,41 @@ class Ui_MainWindow(object):
         MainWindow.resize(995, 482)
         MainWindow.setMinimumSize(QtCore.QSize(640, 480))
         MainWindow.setTabShape(QtWidgets.QTabWidget.Triangular)
+
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
+
         self.masterFrame = QtWidgets.QFrame(self.centralwidget)
         self.masterFrame.setGeometry(QtCore.QRect(-10, 0, 1011, 491))
+
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.masterFrame.sizePolicy().hasHeightForWidth())
+
         self.masterFrame.setSizePolicy(sizePolicy)
         self.masterFrame.setObjectName("masterFrame")
+
         self.verticalLayout_4 = QtWidgets.QVBoxLayout(self.masterFrame)
         self.verticalLayout_4.setObjectName("verticalLayout_4")
+
         self.masterLayout = QtWidgets.QVBoxLayout()
         self.masterLayout.setObjectName("masterLayout")
+
         self.topFrame = QtWidgets.QFrame(self.masterFrame)
         self.topFrame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.topFrame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.topFrame.setObjectName("topFrame")
+
         self.horizontalLayoutWidget = QtWidgets.QWidget(self.topFrame)
         self.horizontalLayoutWidget.setGeometry(QtCore.QRect(-1, -1, 981, 221))
         self.horizontalLayoutWidget.setObjectName("horizontalLayoutWidget")
+
         self.topDivision = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget)
         self.topDivision.setContentsMargins(10, 10, 10, 10)
         self.topDivision.setSpacing(10)
         self.topDivision.setObjectName("topDivision")
+
         self.todayFrame = QtWidgets.QFrame(self.horizontalLayoutWidget)
         self.todayFrame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.todayFrame.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -75,7 +85,9 @@ class Ui_MainWindow(object):
         self.todayRecipe = QtWidgets.QLabel(self.todayWidget)
         self.todayRecipe.setGeometry(QtCore.QRect(20, 40, 121, 21))
         self.todayRecipe.setObjectName("todayRecipe")
+
         self.topDivision.addWidget(self.todayFrame)
+
         self.tommorowFrame = QtWidgets.QFrame(self.horizontalLayoutWidget)
         self.tommorowFrame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.tommorowFrame.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -85,6 +97,7 @@ class Ui_MainWindow(object):
         self.tommorowWidget.setObjectName("tommorowWidget")
         self.tommorowLabel = QtWidgets.QLabel(self.tommorowWidget)
         self.tommorowLabel.setGeometry(QtCore.QRect(120, 10, 91, 21))
+
         font = QtGui.QFont()
         font.setBold(True)
         font.setUnderline(True)
@@ -109,7 +122,9 @@ class Ui_MainWindow(object):
         self.tommorowRecipe = QtWidgets.QLabel(self.tommorowWidget)
         self.tommorowRecipe.setGeometry(QtCore.QRect(10, 40, 171, 21))
         self.tommorowRecipe.setObjectName("tommorowRecipe")
+
         self.topDivision.addWidget(self.tommorowFrame)
+
         self.dayAfterFrame = QtWidgets.QFrame(self.horizontalLayoutWidget)
         self.dayAfterFrame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.dayAfterFrame.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -143,23 +158,29 @@ class Ui_MainWindow(object):
         self.dayAfterRecipe = QtWidgets.QLabel(self.dayAfterWidget)
         self.dayAfterRecipe.setGeometry(QtCore.QRect(10, 40, 251, 21))
         self.dayAfterRecipe.setObjectName("dayAfterRecipe")
+
         self.topDivision.addWidget(self.dayAfterFrame)
         self.masterLayout.addWidget(self.topFrame)
+
         self.bottomFrame = QtWidgets.QFrame(self.masterFrame)
         self.bottomFrame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.bottomFrame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.bottomFrame.setObjectName("bottomFrame")
+
         self.horizontalLayoutWidget_2 = QtWidgets.QWidget(self.bottomFrame)
         self.horizontalLayoutWidget_2.setGeometry(QtCore.QRect(-1, -1, 981, 231))
         self.horizontalLayoutWidget_2.setObjectName("horizontalLayoutWidget_2")
+
         self.bottomDivision = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget_2)
         self.bottomDivision.setContentsMargins(10, 10, 10, 10)
         self.bottomDivision.setSpacing(10)
         self.bottomDivision.setObjectName("bottomDivision")
+
         self.foodlListFrame = QtWidgets.QFrame(self.horizontalLayoutWidget_2)
         self.foodlListFrame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.foodlListFrame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.foodlListFrame.setObjectName("foodlListFrame")
+
         self.ItemsTable = QtWidgets.QTableWidget(self.foodlListFrame)
         self.ItemsTable.setGeometry(QtCore.QRect(140, 10, 381, 191))
         self.ItemsTable.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
@@ -173,12 +194,14 @@ class Ui_MainWindow(object):
         item = QtWidgets.QTableWidgetItem()
         self.ItemsTable.setHorizontalHeaderItem(1, item)
         self.ItemsTable.horizontalHeader().setCascadingSectionResizes(False)
+
         self.listEditFrame = QtWidgets.QFrame(self.foodlListFrame)
         self.listEditFrame.setEnabled(True)
         self.listEditFrame.setGeometry(QtCore.QRect(664, 0, 291, 211))
         self.listEditFrame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.listEditFrame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.listEditFrame.setObjectName("listEditFrame")
+
         self.editMenu = QtWidgets.QWidget(self.listEditFrame)
         self.editMenu.setGeometry(QtCore.QRect(10, 10, 271, 191))
         self.editMenu.setObjectName("editMenu")
@@ -190,6 +213,7 @@ class Ui_MainWindow(object):
         self.editorTab.setTabShape(QtWidgets.QTabWidget.Rounded)
         self.editorTab.setElideMode(QtCore.Qt.ElideNone)
         self.editorTab.setObjectName("editorTab")
+
         self.Add = QtWidgets.QWidget()
         self.Add.setCursor(QtGui.QCursor(QtCore.Qt.UpArrowCursor))
         self.Add.setObjectName("Add")
@@ -205,11 +229,13 @@ class Ui_MainWindow(object):
         self.addGramsBox = QtWidgets.QLineEdit(self.Add)
         self.addGramsBox.setGeometry(QtCore.QRect(102, 50, 161, 29))
         self.addGramsBox.setObjectName("addGramsBox")
+
         self.addItemButton = QtWidgets.QPushButton(self.Add)
         self.addItemButton.setGeometry(QtCore.QRect(80, 100, 106, 30))
         self.addItemButton.setDefault(False)
         self.addItemButton.setFlat(False)
         self.addItemButton.setObjectName("addItemButton")
+
         self.editorTab.addTab(self.Add, "")
         self.Edit = QtWidgets.QWidget()
         self.Edit.setObjectName("Edit")
@@ -236,6 +262,7 @@ class Ui_MainWindow(object):
         self.confirmChangeButton.setFlat(False)
         self.confirmChangeButton.setObjectName("confirmChangeButton")
         self.editorTab.addTab(self.Edit, "")
+
         self.Remove = QtWidgets.QWidget()
         self.Remove.setObjectName("Remove")
         self.itemRemoveLabel = QtWidgets.QLabel(self.Remove)
