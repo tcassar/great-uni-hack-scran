@@ -17,6 +17,23 @@ class Pipeline:
         """Assigns cost to recipes depending on what is currently
         in the pantry"""
 
-        for recipe, mass in self.cb.recipes:
+        print(self.pantry.ingredients, end='\n\n')
+
+        for recipe in self.cb.recipes:
+            cost = 0
             for ingredient in recipe.ingredients:
-                if ingredient in self.pantry.ingredients and
+                if pantry_ingredient := [i for i in self.pantry.ingredients if i == ingredient]:
+                    if pantry_ingredient[0].mass >= ingredient.mass:
+                        # cost of ingredient is 0 as we have enough in pantry
+                        continue
+                    else:
+                        # otherwise we need to buy stuff
+                        cost += ingredient.price
+                        pantry_ingredient[0].mass += ingredient.packet_size
+                else:
+                    new = ingredient
+                    new.mass = new.packet_size
+                    cost += new.price
+                    self.pantry.ingredients.append(new)
+
+            print(f"{recipe.name} will cost {cost}")

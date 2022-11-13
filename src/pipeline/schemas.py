@@ -12,9 +12,21 @@ class Ingredient:
     name: str
     mass: int
 
-    def __str__(self):
-        return self.name
+    @property
+    def price(self) -> int:
+        return cursor.execute("""SELECT price FROM main.shop
+        WHERE  id = ?""", [self.id]).fetchone()[0]
 
+    @property
+    def packet_size(self) -> int:
+        return cursor.execute("""SELECT mass FROM main.shop
+                WHERE  id = ?""", [self.id]).fetchone()[0]
+    def __eq__(self, other):
+        return True if f"{self.id}{self.name}" == f"{other.id}{other.name}" else False
+
+    def __repr__(self):
+        return f"Ingredient(id={self.id}, calories={self.calories}, " \
+               f" protein={self.protein}, name={self.name}, mass={self.mass})"
 
 @dataclass
 class Recipe:
@@ -26,7 +38,7 @@ class Recipe:
 
 @dataclass
 class CookBook:
-    recipes: list[tuple[Recipe, int]] = field(default_factory=lambda: [])
+    recipes: list[Recipe] = field(default_factory=lambda: [])
 
     def pull_recipies(self):
 
@@ -54,7 +66,12 @@ class Pantry:
         return ' '.join([ing.name for ing in self.ingredients])
 
     def build_pantry(self):
-        ing_data = cursor.execute('SELECT * FROM registry').fetchall()
+
+        query = """
+SELECT r.id, calories, protein, name, mass FROM pantry
+JOIN registry r on r.id = pantry.id"""
+
+        ing_data = cursor.execute(query).fetchall()
 
         for ing in ing_data:
             self.ingredients.append(Ingredient(*ing))
