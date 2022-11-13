@@ -10,3 +10,10 @@ class TestPantry(TestCase):
         recipes = plan_meals.Pipeline().process()
         print(recipes)
         p.update_pantry(recipes)
+
+
+
+class TestIngredient(TestCase):
+    def test__push_to_registry(self):
+        i = Ingredient(0, 400, 10, 'mince', 500)
+        i._push_to_registry()

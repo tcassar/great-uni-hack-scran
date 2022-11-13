@@ -34,7 +34,9 @@ class Pipeline:
                         pantry_ingredient[0].mass -= ingredient.mass
                         continue
                     elif pantry_ingredient[0].mass < 0:
-                        pantry_ingredient[0].mass = 0  # reset to none so we don't end up with an imaginary food debt
+                        pantry_ingredient[
+                            0
+                        ].mass = 0  # reset to none so we don't end up with an imaginary food debt
                     else:
                         # otherwise we need to buy stuff
                         cost += ingredient.price
@@ -79,5 +81,5 @@ class Pipeline:
     def process(self) -> list[schemas.Recipe]:
         """Returns next few days worth of recipes"""
         self._items_to_recipes()
-        print(self.cb.next_days, 'process')
+        print(self.cb.next_days, "process")
         return self.cb.next_days

@@ -40,6 +40,21 @@ class Ingredient:
             f" protein={self.protein}, name={self.name}, mass={self.mass})"
         )
 
+    def _push_to_registry(self):
+
+        # check if it exists
+        names = [name[0] for name in cursor.execute("""SELECT name FROM registry""").fetchall()]
+        if self.name not in names:
+            # push new entry to registry
+            cursor.execute("""  INSERT INTO registry (calories, protein, name)
+                                VALUES (?, ?, ?);""", [self.calories, self.protein, self.name])
+
+            con.commit()
+
+    def purchase_ingredient(self):
+        """ pushes ingredient to pantry;
+            if it doesnt exist in registry, """
+
 
 @dataclass
 class Recipe:
@@ -101,10 +116,12 @@ JOIN registry r on r.id = pantry.id"""
             self.ingredients.append(Ingredient(*ing))
 
     def update_pantry(self, recipes: list[Recipe]):
+
+        """Will update values for recipes which are passed in"""
+
         sql_exists = """UPDATE pantry 
         SET mass = ? 
         WHERE id = ?"""
-
 
         sql_nexiste_pas = """INSERT INTO pantry (id, mass) VALUES (?, ?)"""
 
