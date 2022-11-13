@@ -22,5 +22,5 @@ class TestPipeline(TestCase):
         print([r for r in pipe.cb.next_days])
 
     def test_process(self):
-        pipe = Pipeline()
-        print(pipe.process())
+        # pipe = Pipeline()
+        print(Pipeline().process())
