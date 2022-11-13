@@ -171,14 +171,13 @@ class Ui_MainWindow(object):
         self.addItemBox = QtWidgets.QLineEdit(self.Add)
         self.addItemBox.setGeometry(QtCore.QRect(100, 10, 161, 29))
         self.addItemBox.setObjectName("addItemBox")
-        self.addItemBox.
         self.quantityAddLabel_2 = QtWidgets.QLabel(self.Add)
         self.quantityAddLabel_2.setGeometry(QtCore.QRect(10, 60, 80, 21))
         self.quantityAddLabel_2.setObjectName("quantityAddLabel_2")
         self.addGramsBox = QtWidgets.QLineEdit(self.Add)
         self.addGramsBox.setGeometry(QtCore.QRect(102, 50, 161, 29))
         self.addGramsBox.setObjectName("addGramsBox")
-        self.addItemButton = QtWidgets.QPushButton(self.Add, clicked=lambda: add_item())
+        self.addItemButton = QtWidgets.QPushButton(self.Add, clicked= lambda: self.add_item())
         self.addItemButton.setGeometry(QtCore.QRect(80, 100, 106, 30))
         self.addItemButton.setDefault(False)
         self.addItemButton.setFlat(False)
@@ -284,6 +283,7 @@ class Ui_MainWindow(object):
 
     def add_item(self):
         item = self.addItemBox.text()
+        print(item)
 
     def get_pantry_from_db(self):
         pass
@@ -292,6 +292,7 @@ class Ui_MainWindow(object):
         pass
 
     def get_item_from_text(self):
+        pass
 
 
 
