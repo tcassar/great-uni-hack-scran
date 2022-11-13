@@ -128,7 +128,10 @@ class Graph:
     def neighbours(self, node: Node) -> list[Node]:
         """return the neighbours of a node"""
         edge: Edge
-        return [edge.next_node for edge in self.adj_list[node]]
+        if node in self.adj_list.keys():
+            return [edge.next_node for edge in self.adj_list[node]]
+        else:
+            return []
 
     def edges_from(self, node: Node) -> list[Edge]:
         """return list of edges from a node"""
@@ -162,10 +165,4 @@ class Graph:
             raise EdgeDoesNotExistException
 
         else:
-            # given the edge exists extract the weight
-            for edge in filter(lambda x: x.next_node == dest, self.adj_list[src]):
-                print(edge)
-                min_weight = edge.value
-
-            print(min_weight)
-            return min_weight
+            return [edge.value for edge in filter(lambda x: x.next_node == dest, self.adj_list[src])][0]
