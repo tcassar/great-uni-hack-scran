@@ -10,6 +10,7 @@ class Ingredient:
     calories: int
     protein: int
     name: str
+    mass: int
 
     def __str__(self):
         return self.name
@@ -19,12 +20,13 @@ class Ingredient:
 class Recipe:
     id: int
     name: str
-    ingredients: list[tuple[Ingredient], int] = field(default_factory=lambda: [])
+    ingredients: tuple[Ingredient] = field(default_factory=lambda: [])
+    cost: int = -1
 
 
 @dataclass
 class CookBook:
-    recipes: list[tuple[Recipe, int, int]] = field(default_factory=lambda: [])
+    recipes: list[tuple[Recipe, int]] = field(default_factory=lambda: [])
 
     def pull_recipies(self):
 
@@ -40,7 +42,7 @@ class CookBook:
             ingredients = cursor.execute(ingredients_query, [recipe[0]]).fetchall()
             for ingredient in ingredients:
                 # noinspection PyTypeChecker
-                r.ingredients.append((Ingredient(*ingredient[:-1]), ingredient[-1], -1))
+                r.ingredients.append(Ingredient(*ingredient))
 
             self.recipes.append(r)
 

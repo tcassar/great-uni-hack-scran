@@ -17,3 +17,6 @@ class Pipeline:
         """Assigns cost to recipes depending on what is currently
         in the pantry"""
 
+        for recipe, mass in self.cb.recipes:
+            for ingredient in recipe.ingredients:
+                if ingredient in self.pantry.ingredients and
