@@ -1,6 +1,8 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import _sqlite3
+import _sqlite3 as sq
+import os
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -231,6 +233,7 @@ class Ui_MainWindow(object):
         self.pantryTableFrame.setGeometry(QtCore.QRect(339, 9, 321, 191))
         self.pantryTableFrame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.pantryTableFrame.setFrameShadow(QtWidgets.QFrame.Raised)
+
         self.pantryTableFrame.setObjectName("pantryTableFrame")
         self.pantryTable = QtWidgets.QTableWidget(self.pantryTableFrame)
         self.pantryTable.setGeometry(QtCore.QRect(10, 30, 301, 151))
@@ -281,15 +284,33 @@ class Ui_MainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
         MainWindow.setTabOrder(self.pantryTable, self.editorTab)
 
+        self.update_pantry()
+
+
+    def grab_all_pantry_items(self):
+        db = sq.connect("/home/ioan/PycharmProjects/hackathon/src/pipeline/scran")
+        c = db.cursor()
+        c.execute("SELECT registry.name FROM registry")
+        records = c.fetchall()
+        return [data[0] for data in records if records]
+        db.close()
+
+
     def add_item(self):
-        item = self.addItemBox.text()
-        print(item)
+        self.update_pantry()
+
+
 
     def get_pantry_from_db(self):
         pass
 
     def update_pantry(self):
-        pass
+        for i, name in enumerate(self.grab_all_pantry_items()):
+            self.pantryTable.setRowCount(i+1)
+            item_name = QtWidgets.QTableWidgetItem(name)
+            item_name.setText(name)
+            self.pantryTable.setItem(i, 0,  item_name)
+
 
     def get_item_from_text(self):
         pass
