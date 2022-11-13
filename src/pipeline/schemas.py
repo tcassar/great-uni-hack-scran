@@ -24,11 +24,11 @@ class Recipe:
 
 @dataclass
 class CookBook:
-    recipes: list[Recipe] = field(default_factory=lambda: [])
+    recipes: list[tuple[Recipe, int, int]] = field(default_factory=lambda: [])
 
     def pull_recipies(self):
 
-        ingredients_query = """SELECT ingredient_id, r.calories, r.protein, r.name, mass FROM recipes
+        ingredients_query = """SELECT irl.ingredient_id, r.calories, r.protein, r.name, irl.mass FROM recipes
                                 JOIN ingredient_recipie_link irl on recipes.id = irl.recipe_id
                                 JOIN registry r on irl.ingredient_id = r.id
                                 WHERE irl.recipe_id = ?;"""
@@ -39,7 +39,8 @@ class CookBook:
             r = Recipe(*recipe)
             ingredients = cursor.execute(ingredients_query, [recipe[0]]).fetchall()
             for ingredient in ingredients:
-                r.ingredients.append((Ingredient(*ingredient[:-1]), ingredient[-1]))
+                # noinspection PyTypeChecker
+                r.ingredients.append((Ingredient(*ingredient[:-1]), ingredient[-1], -1))
 
             self.recipes.append(r)
 
