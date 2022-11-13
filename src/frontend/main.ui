@@ -139,16 +139,11 @@
                 <enum>Qt::SolidLine</enum>
                </property>
                <property name="columnCount">
-                <number>2</number>
+                <number>1</number>
                </property>
                <column>
                 <property name="text">
-                 <string>ITEM</string>
-                </property>
-               </column>
-               <column>
-                <property name="text">
-                 <string>AMOUNT</string>
+                 <string>Recipes:</string>
                 </property>
                </column>
               </widget>
@@ -157,12 +152,12 @@
                 <rect>
                  <x>20</x>
                  <y>40</y>
-                 <width>121</width>
+                 <width>131</width>
                  <height>21</height>
                 </rect>
                </property>
                <property name="text">
-                <string>Today's Recipe</string>
+                <string>Today's Recipes</string>
                </property>
               </widget>
              </widget>
@@ -205,7 +200,20 @@
                 <string>Tommrow</string>
                </property>
               </widget>
-              <widget class="QTableWidget" name="tommorrowTable">
+              <widget class="QLabel" name="tommorowRecipe">
+               <property name="geometry">
+                <rect>
+                 <x>10</x>
+                 <y>40</y>
+                 <width>171</width>
+                 <height>21</height>
+                </rect>
+               </property>
+               <property name="text">
+                <string>Tommorow's Recipes</string>
+               </property>
+              </widget>
+              <widget class="QTableWidget" name="tommorowTable">
                <property name="geometry">
                 <rect>
                  <x>10</x>
@@ -233,31 +241,13 @@
                 <enum>Qt::SolidLine</enum>
                </property>
                <property name="columnCount">
-                <number>2</number>
+                <number>1</number>
                </property>
                <column>
                 <property name="text">
-                 <string>ITEM</string>
+                 <string>Recipes:</string>
                 </property>
                </column>
-               <column>
-                <property name="text">
-                 <string>AMOUNT</string>
-                </property>
-               </column>
-              </widget>
-              <widget class="QLabel" name="tommorowRecipe">
-               <property name="geometry">
-                <rect>
-                 <x>10</x>
-                 <y>40</y>
-                 <width>171</width>
-                 <height>21</height>
-                </rect>
-               </property>
-               <property name="text">
-                <string>Tommorow's Recipe</string>
-               </property>
               </widget>
              </widget>
             </widget>
@@ -299,6 +289,19 @@
                 <string>Day After Tommorow</string>
                </property>
               </widget>
+              <widget class="QLabel" name="dayAfterRecipe">
+               <property name="geometry">
+                <rect>
+                 <x>10</x>
+                 <y>40</y>
+                 <width>251</width>
+                 <height>21</height>
+                </rect>
+               </property>
+               <property name="text">
+                <string>Day After Tommorows Recipes</string>
+               </property>
+              </widget>
               <widget class="QTableWidget" name="dayAfterTable">
                <property name="geometry">
                 <rect>
@@ -327,31 +330,13 @@
                 <enum>Qt::SolidLine</enum>
                </property>
                <property name="columnCount">
-                <number>2</number>
+                <number>1</number>
                </property>
                <column>
                 <property name="text">
-                 <string>ITEM</string>
+                 <string>Recipes:</string>
                 </property>
                </column>
-               <column>
-                <property name="text">
-                 <string>AMOUNT</string>
-                </property>
-               </column>
-              </widget>
-              <widget class="QLabel" name="dayAfterRecipe">
-               <property name="geometry">
-                <rect>
-                 <x>10</x>
-                 <y>40</y>
-                 <width>251</width>
-                 <height>21</height>
-                </rect>
-               </property>
-               <property name="text">
-                <string>Day After Tommorows Recipe</string>
-               </property>
               </widget>
              </widget>
             </widget>
@@ -401,47 +386,6 @@
              <property name="frameShadow">
               <enum>QFrame::Raised</enum>
              </property>
-             <widget class="QTableWidget" name="ItemsTable">
-              <property name="geometry">
-               <rect>
-                <x>140</x>
-                <y>10</y>
-                <width>381</width>
-                <height>191</height>
-               </rect>
-              </property>
-              <property name="verticalScrollBarPolicy">
-               <enum>Qt::ScrollBarAlwaysOn</enum>
-              </property>
-              <property name="sizeAdjustPolicy">
-               <enum>QAbstractScrollArea::AdjustToContents</enum>
-              </property>
-              <property name="gridStyle">
-               <enum>Qt::SolidLine</enum>
-              </property>
-              <property name="sortingEnabled">
-               <bool>true</bool>
-              </property>
-              <property name="rowCount">
-               <number>0</number>
-              </property>
-              <property name="columnCount">
-               <number>2</number>
-              </property>
-              <attribute name="horizontalHeaderCascadingSectionResizes">
-               <bool>false</bool>
-              </attribute>
-              <column>
-               <property name="text">
-                <string>ITEM</string>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>AMOUNT</string>
-               </property>
-              </column>
-             </widget>
              <widget class="QFrame" name="listEditFrame">
               <property name="enabled">
                <bool>true</bool>
@@ -491,7 +435,7 @@
                  <enum>QTabWidget::Rounded</enum>
                 </property>
                 <property name="currentIndex">
-                 <number>0</number>
+                 <number>1</number>
                 </property>
                 <property name="elideMode">
                  <enum>Qt::ElideNone</enum>
@@ -734,6 +678,146 @@
                </widget>
               </widget>
              </widget>
+             <widget class="QFrame" name="pantryTableFrame">
+              <property name="geometry">
+               <rect>
+                <x>339</x>
+                <y>9</y>
+                <width>321</width>
+                <height>191</height>
+               </rect>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
+              <widget class="QTableWidget" name="pantryTable">
+               <property name="geometry">
+                <rect>
+                 <x>10</x>
+                 <y>30</y>
+                 <width>301</width>
+                 <height>151</height>
+                </rect>
+               </property>
+               <property name="verticalScrollBarPolicy">
+                <enum>Qt::ScrollBarAlwaysOn</enum>
+               </property>
+               <property name="sizeAdjustPolicy">
+                <enum>QAbstractScrollArea::AdjustToContents</enum>
+               </property>
+               <property name="gridStyle">
+                <enum>Qt::SolidLine</enum>
+               </property>
+               <property name="sortingEnabled">
+                <bool>true</bool>
+               </property>
+               <property name="rowCount">
+                <number>0</number>
+               </property>
+               <property name="columnCount">
+                <number>2</number>
+               </property>
+               <attribute name="horizontalHeaderCascadingSectionResizes">
+                <bool>false</bool>
+               </attribute>
+               <column>
+                <property name="text">
+                 <string>ITEM</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>AMOUNT</string>
+                </property>
+               </column>
+              </widget>
+              <widget class="QLabel" name="pantryLabel">
+               <property name="geometry">
+                <rect>
+                 <x>10</x>
+                 <y>10</y>
+                 <width>80</width>
+                 <height>21</height>
+                </rect>
+               </property>
+               <property name="text">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Pantry&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
+              </widget>
+             </widget>
+             <widget class="QFrame" name="selectedRecipeFrame">
+              <property name="geometry">
+               <rect>
+                <x>10</x>
+                <y>10</y>
+                <width>321</width>
+                <height>191</height>
+               </rect>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
+              <widget class="QLabel" name="pantryLabel_2">
+               <property name="geometry">
+                <rect>
+                 <x>10</x>
+                 <y>10</y>
+                 <width>141</width>
+                 <height>21</height>
+                </rect>
+               </property>
+               <property name="text">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Selected Recipe&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
+              </widget>
+              <widget class="QTableWidget" name="todayTable_2">
+               <property name="geometry">
+                <rect>
+                 <x>10</x>
+                 <y>40</y>
+                 <width>291</width>
+                 <height>141</height>
+                </rect>
+               </property>
+               <property name="verticalScrollBarPolicy">
+                <enum>Qt::ScrollBarAlwaysOn</enum>
+               </property>
+               <property name="horizontalScrollBarPolicy">
+                <enum>Qt::ScrollBarAlwaysOff</enum>
+               </property>
+               <property name="sizeAdjustPolicy">
+                <enum>QAbstractScrollArea::AdjustToContents</enum>
+               </property>
+               <property name="textElideMode">
+                <enum>Qt::ElideRight</enum>
+               </property>
+               <property name="showGrid">
+                <bool>true</bool>
+               </property>
+               <property name="gridStyle">
+                <enum>Qt::SolidLine</enum>
+               </property>
+               <property name="columnCount">
+                <number>2</number>
+               </property>
+               <column>
+                <property name="text">
+                 <string>ITEM</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>AMOUNT</string>
+                </property>
+               </column>
+              </widget>
+             </widget>
             </widget>
            </item>
           </layout>
@@ -747,7 +831,7 @@
   </widget>
  </widget>
  <tabstops>
-  <tabstop>ItemsTable</tabstop>
+  <tabstop>pantryTable</tabstop>
   <tabstop>editorTab</tabstop>
  </tabstops>
  <resources/>
