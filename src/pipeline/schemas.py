@@ -48,13 +48,30 @@ class Ingredient:
             # push new entry to registry
             cursor.execute("""  INSERT INTO registry (calories, protein, name)
                                 VALUES (?, ?, ?);""", [self.calories, self.protein, self.name])
-
             con.commit()
+
+            return cursor.execute("""SELECT id FROM registry WHERE calories=? AND protein=? AND name=? """,
+                                  [self.calories, self.protein, self.name])
 
     def purchase_ingredient(self):
         """ pushes ingredient to pantry;
-            if it doesnt exist in registry, """
+            if it doesn't exist in registry, """
 
+        self._push_to_registry()  # make new entry to registry if doesn't exist
+
+        # if we exist in the pantry update mass else create entry in pantry
+        pid = cursor.execute("""SELECT r.id FROM pantry 
+        JOIN registry r on pantry.id = r.id
+        WHERE r.name = ?""", [self.name]).fetchone()
+
+        if pid:
+            cursor.execute("""UPDATE pantry SET mass = ? WHERE id = ?""", [self.mass, pid])
+        else:
+            # can always guarantee we will be in registry
+            cursor.execute("""INSERT INTO pantry (mass, id) VALUES (?, 
+            (SELECT id from registry WHERE name=?))""", [self.mass, self.name])
+
+        con.commit()
 
 @dataclass
 class Recipe:
