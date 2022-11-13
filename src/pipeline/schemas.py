@@ -25,10 +25,11 @@ class Ingredient:
 
     @property
     def packet_size(self) -> int:
+        print(self.id)
         return cursor.execute(
             """SELECT mass FROM main.shop
-                WHERE  id = ?""",
-            [self.id],
+                WHERE  id = (SELECT id from registry where name = ?)""",
+            [self.name],
         ).fetchone()[0]
 
     def __eq__(self, other):
@@ -59,13 +60,15 @@ class Ingredient:
 
         self._push_to_registry()  # make new entry to registry if doesn't exist
 
+        self.mass = self.mass + self.packet_size
+
         # if we exist in the pantry update mass else create entry in pantry
         pid = cursor.execute("""SELECT r.id FROM pantry 
         JOIN registry r on pantry.id = r.id
         WHERE r.name = ?""", [self.name]).fetchone()
 
         if pid:
-            cursor.execute("""UPDATE pantry SET mass = ? WHERE id = ?""", [self.mass, pid])
+            cursor.execute("""UPDATE pantry SET mass = (?) WHERE id = (?)""", [self.mass, pid])
         else:
             # can always guarantee we will be in registry
             cursor.execute("""INSERT INTO pantry (mass, id) VALUES (?, 
