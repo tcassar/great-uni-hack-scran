@@ -16,17 +16,6 @@ class TestKnapsack(TestCase):
 
         self.kp = Knapsack(self.items, 5)
 
-    def test__new_nodes(self):
-        Node, Item = graph.Node, graph.Item
-        self.assertEqual(
-            *self.kp._new_nodes(graph.Node(0, self.items[0])),
-            [
-                [
-                    Node(0, Item(label="crystal", weight=2, value=4)),
-                    Node(2, Item(label="crystal", weight=2, value=4)),
-                ]
-            ],
-        )
 
     def test_build_graph(self):
         """build_graph

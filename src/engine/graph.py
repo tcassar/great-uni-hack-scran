@@ -41,11 +41,20 @@ class Node:
             f"{self.item_considered.label}, {self.current_weight}",
         )
 
+    def __eq__(self, other):
+        if f"{self.item_considered}{self.current_weight}" == f"{other.item_considered}{other.current_weight}":
+            return True
+        else:
+            return False
+
     def __hash__(self):
         return hash(f"{self.current_weight}, {self.item_considered}")
 
     def __repr__(self):
         return f"Node({self.current_weight}, {self.item_considered})"
+
+    def __str__(self):
+        return f"{self.item_considered.label}, {self.current_weight}"
 
 
 @dataclass
@@ -53,15 +62,26 @@ class Edge:
     next_node: Node
     value: int
 
+    def __eq__(self, other):
+        if f'{self.next_node}{self.value}' == f"{other.next_node}{other.value}":
+            return True
+        else:
+            return False
+
 
 @dataclass
 class Queue:
     """For use with nodes or edges"""
 
     _queue: list = field(default_factory=lambda: [])  # type: ignore
+    no_dup: bool = False
 
     def enqueue(self, item: Edge | Node) -> None:
-        self._queue.append(item)
+        if self.no_dup:
+            if item not in self._queue:
+                self._queue.append(item)
+        else:
+            self._queue.append(item)
 
     def dequeue(self) -> Edge | Node:
         return self._queue.pop(0)
@@ -74,18 +94,18 @@ class Graph:
     """Adjacency list representation of digraph
     Can only go forward along digraph (cannot traverse backwards)"""
 
-    def __init__(self, items: list[Item] | None = None):
+    def __init__(self, nodes: list[Node] | None = None):
 
         self.src: None | Node = None
 
-        if items:
-            self.items: list[Item] = items  # list of items that need consideration
+        if nodes:
+            self.nodes: list[Node] = nodes  # list of items that need consideration
         else:
-            self.items: list[Item] = []
+            self.nodes: list[Node] = []
 
         # initialise empty adjacency list
-        self.adj_list: dict[Item, list[Edge]] = (
-            {item: [] for item in items} if items else {}
+        self.adj_list: dict[Node, list[Edge]] = (
+            {item: [] for item in nodes} if nodes else {}
         )
 
     def add_edge(self, current: Node, next: Node, value: int) -> None:
@@ -93,8 +113,12 @@ class Graph:
 
         edge = Edge(next, -1 * value)
 
-        edges = self.adj_list[current.item_considered]
-        edges.append(edge)
+        # edges = self.adj_list[current]
+        if current in self.adj_list.keys():
+            self.adj_list[current].append(edge)
+        else:
+            self.adj_list[current] = [edge]
+
         dot.edge(
             f"{current.item_considered.label}{current.current_weight}",
             f"{next.item_considered.label}{next.current_weight}",
@@ -104,15 +128,15 @@ class Graph:
     def neighbours(self, node: Node) -> list[Node]:
         """return the neighbours of a node"""
         edge: Edge
-        return [edge.next_node for edge in self.adj_list[node.item_considered]]
+        return [edge.next_node for edge in self.adj_list[node]]
 
     def edges_from(self, node: Node) -> list[Edge]:
         """return list of edges from a node"""
-        return [edge for edge in self.adj_list[node.item_considered]]
+        return [edge for edge in self.adj_list[node]]
 
     def add_node(self, node: Node):
         """Adds node to graph with no edges"""
-        self.adj_list[node.item_considered] = []
+        self.adj_list[node] = []
 
     def node_exists(self, node: Node):
         return True if node.item_considered in self.adj_list.keys() else False
@@ -125,10 +149,10 @@ class Graph:
         return (
             True
             if dest_node.item_considered
-            in [
-                edge.next_node.item_considered
-                for edge in self.adj_list[src_node.item_considered]
-            ]
+               in [
+                   edge.next_node.item_considered
+                   for edge in self.adj_list[src_node]
+               ]
             else False
         )
 
@@ -138,4 +162,10 @@ class Graph:
             raise EdgeDoesNotExistException
 
         else:
-            return -1 * dest.item_considered.value
+            # given the edge exists extract the weight
+            for edge in filter(lambda x: x.next_node == dest, self.adj_list[src]):
+                print(edge)
+                min_weight = edge.value
+
+            print(min_weight)
+            return min_weight
