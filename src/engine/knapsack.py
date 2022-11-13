@@ -31,7 +31,9 @@ class Knapsack:
         if next_index < self.cave_len:
             next_item = self.cave[next_index]
         else:
-            next_item = graph.Item("final", current.current_weight + current.item_considered.weight, 0)
+            next_item = graph.Item(
+                "final", current.current_weight + current.item_considered.weight, 0
+            )
             self.cave.append(next_item)
 
         nodes: list[tuple[graph.Node, int]] = [

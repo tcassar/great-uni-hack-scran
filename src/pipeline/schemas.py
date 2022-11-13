@@ -2,7 +2,8 @@ from dataclasses import dataclass, field
 
 import sqlite3
 
-cursor = sqlite3.connect('../../tests/test_pipeline/test_scran').cursor()
+cursor = sqlite3.connect("../../tests/test_pipeline/test_scran").cursor()
+
 
 @dataclass
 class Ingredient:
@@ -14,19 +15,29 @@ class Ingredient:
 
     @property
     def price(self) -> int:
-        return cursor.execute("""SELECT price FROM main.shop
-        WHERE  id = ?""", [self.id]).fetchone()[0]
+        return cursor.execute(
+            """SELECT price FROM main.shop
+        WHERE  id = ?""",
+            [self.id],
+        ).fetchone()[0]
 
     @property
     def packet_size(self) -> int:
-        return cursor.execute("""SELECT mass FROM main.shop
-                WHERE  id = ?""", [self.id]).fetchone()[0]
+        return cursor.execute(
+            """SELECT mass FROM main.shop
+                WHERE  id = ?""",
+            [self.id],
+        ).fetchone()[0]
+
     def __eq__(self, other):
         return True if f"{self.id}{self.name}" == f"{other.id}{other.name}" else False
 
     def __repr__(self):
-        return f"Ingredient(id={self.id}, calories={self.calories}, " \
-               f" protein={self.protein}, name={self.name}, mass={self.mass})"
+        return (
+            f"Ingredient(id={self.id}, calories={self.calories}, "
+            f" protein={self.protein}, name={self.name}, mass={self.mass})"
+        )
+
 
 @dataclass
 class Recipe:
@@ -38,7 +49,11 @@ class Recipe:
     @property
     def value(self):
         """Value is protein / calories ratio (*100, so we can round and use integer weights in graph"""
-        return sum([round(i.protein / i.calories * 100) for i in self.ingredients]) if self.ingredients else -1
+        return (
+            sum([round(i.protein / i.calories * 100) for i in self.ingredients])
+            if self.ingredients
+            else -1
+        )
 
 
 @dataclass
@@ -64,12 +79,13 @@ class CookBook:
 
             self.recipes.append(r)
 
+
 @dataclass
 class Pantry:
     ingredients: list[Ingredient] = field(default_factory=lambda: [])
 
     def __str__(self):
-        return ' '.join([ing.name for ing in self.ingredients])
+        return " ".join([ing.name for ing in self.ingredients])
 
     def build_pantry(self):
 
@@ -84,4 +100,3 @@ JOIN registry r on r.id = pantry.id"""
 
     def update_pantry(self):
         ...
-

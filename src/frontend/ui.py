@@ -21,7 +21,9 @@ class Ui(object):
         self.centralwidget.setObjectName("centralwidget")
         self.masterFrame = QtWidgets.QFrame(self.centralwidget)
         self.masterFrame.setGeometry(QtCore.QRect(-10, 0, 1011, 681))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding
+        )
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.masterFrame.sizePolicy().hasHeightForWidth())
@@ -61,7 +63,9 @@ class Ui(object):
         self.todayTable.setGeometry(QtCore.QRect(10, 70, 291, 221))
         self.todayTable.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
         self.todayTable.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.todayTable.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustToContents)
+        self.todayTable.setSizeAdjustPolicy(
+            QtWidgets.QAbstractScrollArea.AdjustToContents
+        )
         self.todayTable.setTextElideMode(QtCore.Qt.ElideRight)
         self.todayTable.setShowGrid(True)
         self.todayTable.setGridStyle(QtCore.Qt.SolidLine)
@@ -100,7 +104,9 @@ class Ui(object):
         self.tommorowTable.setGeometry(QtCore.QRect(-10, 60, 301, 221))
         self.tommorowTable.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
         self.tommorowTable.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.tommorowTable.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustToContents)
+        self.tommorowTable.setSizeAdjustPolicy(
+            QtWidgets.QAbstractScrollArea.AdjustToContents
+        )
         self.tommorowTable.setTextElideMode(QtCore.Qt.ElideRight)
         self.tommorowTable.setShowGrid(True)
         self.tommorowTable.setGridStyle(QtCore.Qt.SolidLine)
@@ -132,7 +138,9 @@ class Ui(object):
         self.dayAfterTable.setGeometry(QtCore.QRect(10, 70, 291, 231))
         self.dayAfterTable.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
         self.dayAfterTable.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.dayAfterTable.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustToContents)
+        self.dayAfterTable.setSizeAdjustPolicy(
+            QtWidgets.QAbstractScrollArea.AdjustToContents
+        )
         self.dayAfterTable.setTextElideMode(QtCore.Qt.ElideRight)
         self.dayAfterTable.setShowGrid(True)
         self.dayAfterTable.setGridStyle(QtCore.Qt.SolidLine)
@@ -261,7 +269,9 @@ class Ui(object):
         self.pantryTable = QtWidgets.QTableWidget(self.pantryTableFrame)
         self.pantryTable.setGeometry(QtCore.QRect(10, 30, 301, 251))
         self.pantryTable.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
-        self.pantryTable.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustToContents)
+        self.pantryTable.setSizeAdjustPolicy(
+            QtWidgets.QAbstractScrollArea.AdjustToContents
+        )
         self.pantryTable.setDragDropOverwriteMode(False)
         self.pantryTable.setGridStyle(QtCore.Qt.SolidLine)
         self.pantryTable.setRowCount(0)
@@ -286,8 +296,12 @@ class Ui(object):
         self.selectedRecipeTable = QtWidgets.QTableWidget(self.selectedRecipeFrame)
         self.selectedRecipeTable.setGeometry(QtCore.QRect(10, 60, 291, 221))
         self.selectedRecipeTable.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
-        self.selectedRecipeTable.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.selectedRecipeTable.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustToContents)
+        self.selectedRecipeTable.setHorizontalScrollBarPolicy(
+            QtCore.Qt.ScrollBarAlwaysOff
+        )
+        self.selectedRecipeTable.setSizeAdjustPolicy(
+            QtWidgets.QAbstractScrollArea.AdjustToContents
+        )
         self.selectedRecipeTable.setTextElideMode(QtCore.Qt.ElideRight)
         self.selectedRecipeTable.setShowGrid(True)
         self.selectedRecipeTable.setGridStyle(QtCore.Qt.SolidLine)
@@ -317,14 +331,16 @@ class Ui(object):
         self.todayLabel.setText(_translate("MainWindow", "Today"))
         item = self.todayTable.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "Recipes:"))
-        self.todayRecipe.setText(_translate("MainWindow", "Today\'s Recipes"))
+        self.todayRecipe.setText(_translate("MainWindow", "Today's Recipes"))
         self.budget.setPlaceholderText(_translate("MainWindow", "Enter your budget"))
         self.tommorowLabel.setText(_translate("MainWindow", "Tommrow"))
-        self.tommorowRecipe.setText(_translate("MainWindow", "Tommorow\'s Recipes"))
+        self.tommorowRecipe.setText(_translate("MainWindow", "Tommorow's Recipes"))
         item = self.tommorowTable.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "Recipes:"))
         self.dayAfterLabel.setText(_translate("MainWindow", "Day After Tommorow"))
-        self.dayAfterRecipe.setText(_translate("MainWindow", "Day After Tommorows Recipes"))
+        self.dayAfterRecipe.setText(
+            _translate("MainWindow", "Day After Tommorows Recipes")
+        )
         item = self.dayAfterTable.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "Recipes:"))
         self.itemAddLabel.setText(_translate("MainWindow", "Item"))
@@ -335,29 +351,45 @@ class Ui(object):
         self.proteinAddLabel_3.setText(_translate("MainWindow", "Protein"))
         self.addProteinBox.setPlaceholderText(_translate("MainWindow", "Enter grams"))
         self.CaloriesAddLabel_5.setText(_translate("MainWindow", "Calories"))
-        self.addCaloriesBox.setPlaceholderText(_translate("MainWindow", "Enter Calories"))
-        self.editorTab.setTabText(self.editorTab.indexOf(self.Add), _translate("MainWindow", "Add"))
+        self.addCaloriesBox.setPlaceholderText(
+            _translate("MainWindow", "Enter Calories")
+        )
+        self.editorTab.setTabText(
+            self.editorTab.indexOf(self.Add), _translate("MainWindow", "Add")
+        )
         self.itemEditLabel.setText(_translate("MainWindow", "Item"))
         self.quantityEditLabel.setText(_translate("MainWindow", "Quantity"))
         self.editFromPantry.setSortingEnabled(True)
         self.editGramsBox.setPlaceholderText(_translate("MainWindow", "Enter grams"))
         self.confirmChangeButton.setText(_translate("MainWindow", "Confirm Change"))
-        self.editorTab.setTabText(self.editorTab.indexOf(self.Edit), _translate("MainWindow", "Edit"))
+        self.editorTab.setTabText(
+            self.editorTab.indexOf(self.Edit), _translate("MainWindow", "Edit")
+        )
         self.itemRemoveLabel.setText(_translate("MainWindow", "Item"))
         self.deleteFromPantry.setSortingEnabled(True)
         self.removeItemButton.setText(_translate("MainWindow", "Remove Item"))
-        self.editorTab.setTabText(self.editorTab.indexOf(self.Remove), _translate("MainWindow", "Remove"))
+        self.editorTab.setTabText(
+            self.editorTab.indexOf(self.Remove), _translate("MainWindow", "Remove")
+        )
         self.pantryTable.setSortingEnabled(True)
         item = self.pantryTable.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "ITEM"))
         item = self.pantryTable.horizontalHeaderItem(1)
         item.setText(_translate("MainWindow", "AMOUNT"))
-        self.pantryLabel.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-weight:600; text-decoration: underline;\">Pantry</span></p></body></html>"))
-        self.selectedRecipeLabel.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-weight:600; text-decoration: underline;\">Selected Recipe</span></p></body></html>"))
+        self.pantryLabel.setText(
+            _translate(
+                "MainWindow",
+                '<html><head/><body><p><span style=" font-weight:600; text-decoration: underline;">Pantry</span></p></body></html>',
+            )
+        )
+        self.selectedRecipeLabel.setText(
+            _translate(
+                "MainWindow",
+                '<html><head/><body><p><span style=" font-weight:600; text-decoration: underline;">Selected Recipe</span></p></body></html>',
+            )
+        )
         item = self.selectedRecipeTable.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "ITEM"))
         item = self.selectedRecipeTable.horizontalHeaderItem(1)
         item.setText(_translate("MainWindow", "AMOUNT"))
         self.scranButton.setText(_translate("MainWindow", "Scranned"))
-
-

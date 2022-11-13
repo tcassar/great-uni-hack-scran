@@ -4,7 +4,6 @@ from unittest import TestCase
 
 
 class TestPipeline(TestCase):
-
     def test_assign_cost(self):
         pipe = Pipeline()
         pipe._assign_cost()

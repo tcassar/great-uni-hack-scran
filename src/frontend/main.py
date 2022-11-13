@@ -50,8 +50,10 @@ class Ui_MainWindow(Ui):
         if item.isalpha() and gram.isnumeric():
             db = sq.connect("/home/ioan/PycharmProjects/hackathon/src/pipeline/scran")
             c = db.cursor()
-            c.execute("INSERT INTO main.registry VALUES (:calories,:protein,:name)",
-                      {'calories': calories, 'protein': protein, 'name': item})
+            c.execute(
+                "INSERT INTO main.registry VALUES (:calories,:protein,:name)",
+                {"calories": calories, "protein": protein, "name": item},
+            )
             db.close()
         self.update_pantry()
 

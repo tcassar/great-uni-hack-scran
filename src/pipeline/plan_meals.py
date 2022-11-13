@@ -5,8 +5,8 @@ from src.engine import graph, knapsack
 
 class Pipeline:
     """To get list of recipes:
-        `recipes = Pipeline().process()`
-        """
+    `recipes = Pipeline().process()`
+    """
 
     def __init__(self, budget=20000):
 
@@ -26,7 +26,9 @@ class Pipeline:
         for recipe in self.cb.recipes:
             cost = 0
             for ingredient in recipe.ingredients:
-                if pantry_ingredient := [i for i in self.pantry.ingredients if i == ingredient]:
+                if pantry_ingredient := [
+                    i for i in self.pantry.ingredients if i == ingredient
+                ]:
                     if pantry_ingredient[0].mass >= ingredient.mass:
                         # cost of ingredient is 0 as we have enough in pantry
                         pantry_ingredient[0].mass -= ingredient.mass
@@ -34,7 +36,9 @@ class Pipeline:
                     else:
                         # otherwise we need to buy stuff
                         cost += ingredient.price
-                        pantry_ingredient[0].mass += ingredient.packet_size - ingredient.mass
+                        pantry_ingredient[0].mass += (
+                            ingredient.packet_size - ingredient.mass
+                        )
                 else:
                     new = ingredient
                     new.mass = new.packet_size - ingredient.mass
@@ -63,7 +67,12 @@ class Pipeline:
     def _items_to_recipes(self):
         items = self._knapsack()
 
-        self.cb.next_days.append(*[[recipe for recipe in self.cb.recipes if recipe.name == item.label] for item in items])
+        self.cb.next_days.append(
+            *[
+                [recipe for recipe in self.cb.recipes if recipe.name == item.label]
+                for item in items
+            ]
+        )
 
     def process(self) -> list[schemas.Recipe]:
         """Returns next few days worth of recipes"""

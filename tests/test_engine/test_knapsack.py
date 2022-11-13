@@ -96,5 +96,10 @@ digraph {
         Item = graph.Item
 
         kp = Knapsack(self.items, 5)
-        self.assertEqual(kp.solve_kp(), [Item(label='pen', weight=3, value=7),
-                                          Item(label='crystal', weight=2, value=4)])
+        self.assertEqual(
+            kp.solve_kp(),
+            [
+                Item(label="pen", weight=3, value=7),
+                Item(label="crystal", weight=2, value=4),
+            ],
+        )
