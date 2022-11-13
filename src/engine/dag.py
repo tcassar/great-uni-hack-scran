@@ -34,7 +34,6 @@ class DAG:
                 ],
             )
         )
-        assert len(path_end) == 1
         end_node: graph.Node = path_end[0]
 
         nodes = [end_node]
@@ -70,6 +69,8 @@ class DAG:
         # get first node of graph
         if g.src is None:
             raise GraphNotBuiltError
+
+        print(graph.dot.source)
 
         # enqueue src node
         q = graph.Queue([g.src], no_dup=True)

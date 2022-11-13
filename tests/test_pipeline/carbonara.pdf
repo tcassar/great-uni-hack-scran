@@ -1,0 +1,11 @@
+// scran graph
+digraph {
+	Carbonara0 [label="Carbonara, 0"]
+	"sink-1" [label="sink, -1"]
+	final0 [label="final, 0"]
+	final0 [label="final, 0"]
+	Carbonara0 -> final0 [label=0]
+	Carbonara0 -> final0 [label=-29]
+	final0 -> "sink-1" [label=0]
+	final0 -> "sink-1" [label=0]
+}

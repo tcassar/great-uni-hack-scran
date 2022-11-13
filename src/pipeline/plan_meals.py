@@ -14,7 +14,7 @@ class Pipeline:
         self.cb = schemas.CookBook()
 
         self.pantry.build_pantry()
-        self.cb.pull_recipies()
+        self.cb.pull_recipes()
 
     def _assign_cost(self):
         """Assigns cost and value to recipes depending on what is currently
@@ -54,7 +54,10 @@ class Pipeline:
 
     def _knapsack(self) -> list[graph.Item]:
         """Runs the knapsack problem on list[items] and returns list[Items]"""
-        self._assign_cost()
         kp = knapsack.Knapsack(self._build_items(), self.budget)
         return kp.solve_kp()
+
+    def _items_to_recipes(self):
+        self._assign_cost()
+
 

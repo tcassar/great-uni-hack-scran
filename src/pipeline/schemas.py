@@ -44,8 +44,9 @@ class Recipe:
 @dataclass
 class CookBook:
     recipes: list[Recipe] = field(default_factory=lambda: [])
+    next_days: list[Recipe] = field(default_factory=lambda: [])
 
-    def pull_recipies(self):
+    def pull_recipes(self):
 
         ingredients_query = """SELECT irl.ingredient_id, r.calories, r.protein, r.name, irl.mass FROM recipes
                                 JOIN ingredient_recipie_link irl on recipes.id = irl.recipe_id
