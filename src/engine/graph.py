@@ -26,6 +26,9 @@ class Item:
     def __hash__(self):
         return hash(f"{self.label}, {self.weight}, {self.value}")
 
+    def __str__(self):
+        return f"{self.label}: w={self.weight}, v={self.value}"
+
 
 @dataclass
 class Node:

@@ -90,3 +90,5 @@ digraph {
         g: graph.Graph = self.kp.build_graph()  # type: ignore
         print(graph.dot.source)
         self.assertEqual(correct_dot, graph.dot.source)
+        graph.dot.render(directory="./graphs/", filename=f"gen_graph.svg")
+

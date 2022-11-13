@@ -67,7 +67,7 @@ class Knapsack:
         n0 = graph.Node(0, self.cave[0])
         sink = graph.Node(-1, graph.Item("sink", 0, 0))
 
-        g = graph.Graph([n0.item_considered, sink.item_considered])
+        g = graph.Graph([n0, sink])
         q = graph.Queue([n0])
 
         g.src = n0  # set source node for DAG
@@ -83,6 +83,6 @@ class Knapsack:
                     g.add_node(node)
                     g.add_edge(current, node, edge_weight)
                     q.enqueue(node)
-                    graph.dot.render(directory="./graphs/", filename=f"gen_graph.svg")
 
+        # create an edge from final layer to sink
         return g
