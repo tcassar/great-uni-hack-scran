@@ -94,7 +94,7 @@
               <widget class="QLabel" name="todayLabel">
                <property name="geometry">
                 <rect>
-                 <x>120</x>
+                 <x>20</x>
                  <y>10</y>
                  <width>51</width>
                  <height>21</height>
@@ -150,7 +150,7 @@
               <widget class="QLabel" name="todayRecipe">
                <property name="geometry">
                 <rect>
-                 <x>80</x>
+                 <x>20</x>
                  <y>40</y>
                  <width>131</width>
                  <height>21</height>
@@ -158,6 +158,22 @@
                </property>
                <property name="text">
                 <string>Today's Recipes</string>
+               </property>
+              </widget>
+              <widget class="QLineEdit" name="budget">
+               <property name="geometry">
+                <rect>
+                 <x>140</x>
+                 <y>10</y>
+                 <width>161</width>
+                 <height>29</height>
+                </rect>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="placeholderText">
+                <string>Enter your budget</string>
                </property>
               </widget>
              </widget>
@@ -838,9 +854,9 @@
                <property name="geometry">
                 <rect>
                  <x>10</x>
-                 <y>40</y>
+                 <y>60</y>
                  <width>291</width>
-                 <height>241</height>
+                 <height>221</height>
                 </rect>
                </property>
                <property name="verticalScrollBarPolicy">
@@ -874,6 +890,19 @@
                  <string>AMOUNT</string>
                 </property>
                </column>
+              </widget>
+              <widget class="QPushButton" name="scranButton">
+               <property name="geometry">
+                <rect>
+                 <x>170</x>
+                 <y>20</y>
+                 <width>106</width>
+                 <height>30</height>
+                </rect>
+               </property>
+               <property name="text">
+                <string>Scranned</string>
+               </property>
               </widget>
              </widget>
             </widget>

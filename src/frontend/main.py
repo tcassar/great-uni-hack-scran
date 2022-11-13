@@ -2,6 +2,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import _sqlite3 as sq
 from ui import Ui
 import os
+from src.pipeline.plan_meals import *
 
 
 class Ui_MainWindow(Ui):
@@ -55,9 +56,8 @@ class Ui_MainWindow(Ui):
         self.update_pantry()
 
     # Get Todays Recipes
-    def get_all_today_recipes(self):
-        recipe_records = self.run_query("SELECT recipes.name FROM recipes")
-        return recipe_records
+    def get_allrecipes(self):
+        recipes = Pipeline
 
     def update_today_meals(self):
         for i, recipe in enumerate(self.get_all_today_recipes()):
