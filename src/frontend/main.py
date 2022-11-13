@@ -286,6 +286,8 @@ class Ui_MainWindow(object):
 
         self.update_pantry()
 
+        print("hello")
+
     def grab_all_pantry_items(self):
         records = self.run_query("SELECT registry.name FROM registry")
         return [data[0] for data in records if records]
