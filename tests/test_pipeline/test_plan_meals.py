@@ -20,3 +20,7 @@ class TestPipeline(TestCase):
         pipe = Pipeline()
         pipe._items_to_recipes()
         print([r for r in pipe.cb.next_days])
+
+    def test_process(self):
+        pipe = Pipeline()
+        print(pipe.process())
