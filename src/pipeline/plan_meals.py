@@ -1,10 +1,13 @@
 """plans scran"""
 from src.pipeline import schemas
+from src.engine import graph, knapsack
 
 
 class Pipeline:
 
-    def __init__(self):
+    def __init__(self, budget=20000):
+
+        self.budget = budget
 
         # build pantry, get recipes
         self.pantry = schemas.Pantry()
@@ -13,8 +16,8 @@ class Pipeline:
         self.pantry.build_pantry()
         self.cb.pull_recipies()
 
-    def assign_cost(self):
-        """Assigns cost to recipes depending on what is currently
+    def _assign_cost(self):
+        """Assigns cost and value to recipes depending on what is currently
         in the pantry"""
 
         print(self.pantry.ingredients, end='\n\n')
@@ -35,5 +38,23 @@ class Pipeline:
                     new.mass = new.packet_size
                     cost += new.price
                     self.pantry.ingredients.append(new)
-
+            recipe.cost = cost
             print(f"{recipe.name} will cost {cost} and have a value of {recipe.value}")
+
+    def _build_items(self) -> list[graph.Item]:
+        """builds list of Items ready to be put into knapsace"""
+
+        self._assign_cost()
+
+        items = []
+        for recipe in self.cb.recipes:
+            items.append(graph.Item(recipe.name, recipe.cost, recipe.value))
+
+        return items
+
+    def _knapsack(self) -> list[graph.Item]:
+        """Runs the knapsack problem on list[items] and returns list[Items]"""
+        self._assign_cost()
+        kp = knapsack.Knapsack(self._build_items(), self.budget)
+        return kp.solve_kp()
+

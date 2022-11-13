@@ -1,6 +1,7 @@
 """Solve the knapsack problem graphically"""
 
 import src.engine.graph as graph
+from src.engine.dag import DAG
 
 
 class Knapsack:
@@ -44,7 +45,7 @@ class Knapsack:
 
         return nodes
 
-    def build_graph(self) -> graph.Graph:
+    def _build_graph(self) -> graph.Graph:
         """Build the graph used to determine the best selection of items
 
         Algorithm:
@@ -86,3 +87,6 @@ class Knapsack:
 
         # create an edge from final layer to sink
         return g
+
+    def solve_kp(self):
+        return DAG.shortest_path(self._build_graph())

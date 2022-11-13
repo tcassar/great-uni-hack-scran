@@ -18,7 +18,7 @@ class TestDAG(TestCase):
             items = [statue, crystal, pen]
 
             kp = Knapsack(items, 5)
-            g = kp.build_graph()
+            g = kp._build_graph()
 
             try:
                 sp = DAG.shortest_path(g)

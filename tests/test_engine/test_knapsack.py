@@ -86,7 +86,15 @@ digraph {
 	final4 -> "sink-1" [label=0]
 }
 """
-        g: graph.Graph = self.kp.build_graph()  # type: ignore
+        g: graph.Graph = self.kp._build_graph()  # type: ignore
         print(graph.dot.source)
         self.assertEqual(correct_dot, graph.dot.source)
         graph.dot.render(directory="./graphs/", filename=f"gen_graph.svg")
+
+    def test_solve_kp(self):
+
+        Item = graph.Item
+
+        kp = Knapsack(self.items, 5)
+        self.assertEqual(kp.solve_kp(), [Item(label='pen', weight=3, value=7),
+                                          Item(label='crystal', weight=2, value=4)])
