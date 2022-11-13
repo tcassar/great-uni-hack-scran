@@ -238,6 +238,7 @@ class Ui_MainWindow(object):
         self.pantryTable = QtWidgets.QTableWidget(self.pantryTableFrame)
         self.pantryTable.setGeometry(QtCore.QRect(10, 30, 301, 151))
         self.pantryTable.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
+        self.pantryTable.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.pantryTable.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustToContents)
         self.pantryTable.setGridStyle(QtCore.Qt.SolidLine)
         self.pantryTable.setRowCount(0)
@@ -299,10 +300,6 @@ class Ui_MainWindow(object):
     def add_item(self):
         self.update_pantry()
 
-
-
-    def get_pantry_from_db(self):
-        pass
 
     def update_pantry(self):
         for i, name in enumerate(self.grab_all_pantry_items()):
