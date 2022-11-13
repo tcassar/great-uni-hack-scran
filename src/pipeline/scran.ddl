@@ -1,9 +1,11 @@
+-- we don't know how to generate root <with-no-name> (class Root) :(
 create table registry
 (
     id       INTEGER
         primary key,
     calories INTEGER,
-    protein  INTEGER
+    protein  INTEGER,
+    name     TEXT
 );
 
 create table pantry
