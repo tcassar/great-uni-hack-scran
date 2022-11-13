@@ -1,4 +1,3 @@
-
 from PyQt5 import QtCore, QtGui, QtWidgets
 import _sqlite3 as sq
 import os
@@ -179,7 +178,7 @@ class Ui_MainWindow(object):
         self.addGramsBox = QtWidgets.QLineEdit(self.Add)
         self.addGramsBox.setGeometry(QtCore.QRect(102, 50, 161, 29))
         self.addGramsBox.setObjectName("addGramsBox")
-        self.addItemButton = QtWidgets.QPushButton(self.Add, clicked= lambda: self.add_item())
+        self.addItemButton = QtWidgets.QPushButton(self.Add, clicked=lambda: self.add_item())
         self.addItemButton.setGeometry(QtCore.QRect(80, 100, 106, 30))
         self.addItemButton.setDefault(False)
         self.addItemButton.setFlat(False)
@@ -287,35 +286,40 @@ class Ui_MainWindow(object):
 
         self.update_pantry()
 
-
     def grab_all_pantry_items(self):
+        records = self.run_query("SELECT registry.name FROM registry")
+        return [data[0] for data in records if records]
+
+    def run_query(self, query):
         db = sq.connect("/home/ioan/PycharmProjects/hackathon/src/pipeline/scran")
         c = db.cursor()
-        c.execute("SELECT registry.name FROM registry")
-        records = c.fetchall()
-        return [data[0] for data in records if records]
+        c.execute(query)
+        result = c.fetchall()
         db.close()
+        return result
 
+    def get_item_from_text(self):
+        return self.addItemBox.text()
+
+    def get_gram_from_text(self):
+        return self.addGramsBox.text()
 
     def add_item(self):
+        item = self.get_item_from_text()
+        gram = self.get_gram_from_text()
+        if item.isalpha() and gram.isnumeric():
+            db = sq.connect("/home/ioan/PycharmProjects/hackathon/src/pipeline/scran")
+            c = db.cursor()
+            c.execute("INSERT INTO main.pantry VALUES (:name,:mass)", {'name': item, 'mass': gram})
+            db.close()
         self.update_pantry()
-
 
     def update_pantry(self):
         for i, name in enumerate(self.grab_all_pantry_items()):
-            self.pantryTable.setRowCount(i+1)
+            self.pantryTable.setRowCount(i + 1)
             item_name = QtWidgets.QTableWidgetItem(name)
             item_name.setText(name)
-            self.pantryTable.setItem(i, 0,  item_name)
-
-
-    def get_item_from_text(self):
-        pass
-
-
-
-
-
+            self.pantryTable.setItem(i, 0, item_name)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -353,8 +357,10 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "ITEM"))
         item = self.pantryTable.horizontalHeaderItem(1)
         item.setText(_translate("MainWindow", "AMOUNT"))
-        self.pantryLabel.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-weight:600; text-decoration: underline;\">Pantry</span></p></body></html>"))
-        self.pantryLabel_2.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-weight:600; text-decoration: underline;\">Selected Recipe</span></p></body></html>"))
+        self.pantryLabel.setText(_translate("MainWindow",
+                                            "<html><head/><body><p><span style=\" font-weight:600; text-decoration: underline;\">Pantry</span></p></body></html>"))
+        self.pantryLabel_2.setText(_translate("MainWindow",
+                                              "<html><head/><body><p><span style=\" font-weight:600; text-decoration: underline;\">Selected Recipe</span></p></body></html>"))
         item = self.todayTable_2.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "ITEM"))
         item = self.todayTable_2.horizontalHeaderItem(1)
@@ -363,6 +369,7 @@ class Ui_MainWindow(object):
 
 if __name__ == "__main__":
     import sys
+
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
