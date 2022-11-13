@@ -45,7 +45,10 @@ class Node:
         )
 
     def __eq__(self, other):
-        if f"{self.item_considered}{self.current_weight}" == f"{other.item_considered}{other.current_weight}":
+        if (
+            f"{self.item_considered}{self.current_weight}"
+            == f"{other.item_considered}{other.current_weight}"
+        ):
             return True
         else:
             return False
@@ -66,7 +69,7 @@ class Edge:
     value: int
 
     def __eq__(self, other):
-        if f'{self.next_node}{self.value}' == f"{other.next_node}{other.value}":
+        if f"{self.next_node}{self.value}" == f"{other.next_node}{other.value}":
             return True
         else:
             return False
@@ -155,10 +158,7 @@ class Graph:
         return (
             True
             if dest_node.item_considered
-               in [
-                   edge.next_node.item_considered
-                   for edge in self.adj_list[src_node]
-               ]
+            in [edge.next_node.item_considered for edge in self.adj_list[src_node]]
             else False
         )
 
@@ -168,4 +168,7 @@ class Graph:
             raise EdgeDoesNotExistException
 
         else:
-            return [edge.value for edge in filter(lambda x: x.next_node == dest, self.adj_list[src])][0]
+            return [
+                edge.value
+                for edge in filter(lambda x: x.next_node == dest, self.adj_list[src])
+            ][0]

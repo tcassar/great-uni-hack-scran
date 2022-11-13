@@ -16,7 +16,6 @@ class TestKnapsack(TestCase):
 
         self.kp = Knapsack(self.items, 5)
 
-
     def test_build_graph(self):
         """build_graph
             Checks that graph built is the same as the one in the MIT lecture
@@ -91,4 +90,3 @@ digraph {
         print(graph.dot.source)
         self.assertEqual(correct_dot, graph.dot.source)
         graph.dot.render(directory="./graphs/", filename=f"gen_graph.svg")
-
