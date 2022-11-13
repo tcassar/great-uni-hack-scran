@@ -22,7 +22,8 @@ create table recipes
         primary key,
     ingredient_id INTEGER
         references registry,
-    mass          INTEGER
+    mass          INTEGER,
+
 );
 
 create table shop
