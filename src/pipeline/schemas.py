@@ -2,7 +2,9 @@ from dataclasses import dataclass, field
 
 import sqlite3
 
-cursor = sqlite3.connect("../../tests/test_pipeline/test_scran").cursor()
+
+con = sqlite3.connect("../../tests/test_pipeline/test_scran")
+cursor = con.cursor()
 
 
 @dataclass
@@ -98,5 +100,24 @@ JOIN registry r on r.id = pantry.id"""
         for ing in ing_data:
             self.ingredients.append(Ingredient(*ing))
 
-    def update_pantry(self):
-        ...
+    def update_pantry(self, recipes: list[Recipe]):
+        sql_exists = """UPDATE pantry 
+        SET mass = ? 
+        WHERE id = ?"""
+
+
+        sql_nexiste_pas = """INSERT INTO pantry (id, mass) VALUES (?, ?)"""
+
+        pantry_ids = cursor.execute("SELECT id FROM main.pantry").fetchall()
+        pantry_ids = [pid[0] for pid in pantry_ids]
+
+        for recipe in recipes:
+            for ingredient in recipe.ingredients:
+                if ingredient.id in pantry_ids:
+                    # update table where entry already exists
+                    cursor.execute(sql_exists, [ingredient.mass, ingredient.id])
+                else:
+                    # add row to pantry linked to id
+                    cursor.execute(sql_nexiste_pas, [ingredient.id, ingredient.mass])
+
+        con.commit()

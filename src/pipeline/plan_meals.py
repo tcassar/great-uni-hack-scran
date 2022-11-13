@@ -33,6 +33,8 @@ class Pipeline:
                         # cost of ingredient is 0 as we have enough in pantry
                         pantry_ingredient[0].mass -= ingredient.mass
                         continue
+                    elif pantry_ingredient[0].mass < 0:
+                        pantry_ingredient[0].mass = 0  # reset to none so we don't end up with an imaginary food debt
                     else:
                         # otherwise we need to buy stuff
                         cost += ingredient.price
@@ -71,10 +73,11 @@ class Pipeline:
             *[
                 [recipe for recipe in self.cb.recipes if recipe.name == item.label]
                 for item in items
-            ]
+            ][0]
         )
 
     def process(self) -> list[schemas.Recipe]:
         """Returns next few days worth of recipes"""
         self._items_to_recipes()
+        print(self.cb.next_days, 'process')
         return self.cb.next_days
