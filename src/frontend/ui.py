@@ -10,9 +10,13 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+from src.pipeline.plan_meals import Pipeline
+import sqlite3 as sq
+
 
 class Ui(object):
     def setupUi(self, MainWindow):
+        self.budget = 100000
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(995, 679)
         MainWindow.setMinimumSize(QtCore.QSize(640, 480))
@@ -21,9 +25,7 @@ class Ui(object):
         self.centralwidget.setObjectName("centralwidget")
         self.masterFrame = QtWidgets.QFrame(self.centralwidget)
         self.masterFrame.setGeometry(QtCore.QRect(-10, 0, 1011, 681))
-        sizePolicy = QtWidgets.QSizePolicy(
-            QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding
-        )
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.masterFrame.sizePolicy().hasHeightForWidth())
@@ -63,9 +65,7 @@ class Ui(object):
         self.todayTable.setGeometry(QtCore.QRect(10, 70, 291, 221))
         self.todayTable.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
         self.todayTable.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.todayTable.setSizeAdjustPolicy(
-            QtWidgets.QAbstractScrollArea.AdjustToContents
-        )
+        self.todayTable.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustToContents)
         self.todayTable.setTextElideMode(QtCore.Qt.ElideRight)
         self.todayTable.setShowGrid(True)
         self.todayTable.setGridStyle(QtCore.Qt.SolidLine)
@@ -77,10 +77,13 @@ class Ui(object):
         self.todayRecipe = QtWidgets.QLabel(self.todayWidget)
         self.todayRecipe.setGeometry(QtCore.QRect(20, 40, 131, 21))
         self.todayRecipe.setObjectName("todayRecipe")
-        self.budget = QtWidgets.QLineEdit(self.todayWidget)
-        self.budget.setGeometry(QtCore.QRect(140, 10, 161, 29))
-        self.budget.setText("")
-        self.budget.setObjectName("budget")
+        self.budgetBox = QtWidgets.QLineEdit(self.todayWidget)
+        self.budgetBox.setGeometry(QtCore.QRect(140, 10, 161, 29))
+        self.budgetBox.setText("")
+        self.budgetBox.setObjectName("budget")
+        self.updateButton = QtWidgets.QPushButton(self.todayWidget, clicked=lambda: self.on_update_button())
+        self.updateButton.setGeometry(QtCore.QRect(170, 40, 106, 30))
+        self.updateButton.setObjectName("updateButton")
         self.topDivision.addWidget(self.todayFrame)
         self.tommorowFrame = QtWidgets.QFrame(self.horizontalLayoutWidget)
         self.tommorowFrame.setFrameShape(QtWidgets.QFrame.StyledPanel)
@@ -104,9 +107,7 @@ class Ui(object):
         self.tommorowTable.setGeometry(QtCore.QRect(-10, 60, 301, 221))
         self.tommorowTable.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
         self.tommorowTable.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.tommorowTable.setSizeAdjustPolicy(
-            QtWidgets.QAbstractScrollArea.AdjustToContents
-        )
+        self.tommorowTable.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustToContents)
         self.tommorowTable.setTextElideMode(QtCore.Qt.ElideRight)
         self.tommorowTable.setShowGrid(True)
         self.tommorowTable.setGridStyle(QtCore.Qt.SolidLine)
@@ -138,9 +139,7 @@ class Ui(object):
         self.dayAfterTable.setGeometry(QtCore.QRect(10, 70, 291, 231))
         self.dayAfterTable.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
         self.dayAfterTable.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.dayAfterTable.setSizeAdjustPolicy(
-            QtWidgets.QAbstractScrollArea.AdjustToContents
-        )
+        self.dayAfterTable.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustToContents)
         self.dayAfterTable.setTextElideMode(QtCore.Qt.ElideRight)
         self.dayAfterTable.setShowGrid(True)
         self.dayAfterTable.setGridStyle(QtCore.Qt.SolidLine)
@@ -269,9 +268,7 @@ class Ui(object):
         self.pantryTable = QtWidgets.QTableWidget(self.pantryTableFrame)
         self.pantryTable.setGeometry(QtCore.QRect(10, 30, 301, 251))
         self.pantryTable.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
-        self.pantryTable.setSizeAdjustPolicy(
-            QtWidgets.QAbstractScrollArea.AdjustToContents
-        )
+        self.pantryTable.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustToContents)
         self.pantryTable.setDragDropOverwriteMode(False)
         self.pantryTable.setGridStyle(QtCore.Qt.SolidLine)
         self.pantryTable.setRowCount(0)
@@ -296,12 +293,8 @@ class Ui(object):
         self.selectedRecipeTable = QtWidgets.QTableWidget(self.selectedRecipeFrame)
         self.selectedRecipeTable.setGeometry(QtCore.QRect(10, 60, 291, 221))
         self.selectedRecipeTable.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
-        self.selectedRecipeTable.setHorizontalScrollBarPolicy(
-            QtCore.Qt.ScrollBarAlwaysOff
-        )
-        self.selectedRecipeTable.setSizeAdjustPolicy(
-            QtWidgets.QAbstractScrollArea.AdjustToContents
-        )
+        self.selectedRecipeTable.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.selectedRecipeTable.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustToContents)
         self.selectedRecipeTable.setTextElideMode(QtCore.Qt.ElideRight)
         self.selectedRecipeTable.setShowGrid(True)
         self.selectedRecipeTable.setGridStyle(QtCore.Qt.SolidLine)
@@ -325,22 +318,107 @@ class Ui(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
         MainWindow.setTabOrder(self.pantryTable, self.editorTab)
 
+        self.update_today_meals()
+
+    def on_update_button(self):
+        self.update_budget()
+        self.update_today_meals()
+
+    def update_budget(self):
+        btext = self.budgetBox.text()
+        if not btext:
+            self.budget = 0
+        else:
+            self.budget = int(btext)
+
+    def run_query(self, query):
+        db = sq.connect("/home/ioan/PycharmProjects/hackathon/src/pipeline/scran")
+        c = db.cursor()
+        c.execute(query)
+        result = c.fetchall()
+        db.close()
+        return result
+
+    # Pantry Display
+
+    def grab_all_pantry_items(self):
+        records = self.run_query("SELECT registry.name FROM registry")
+        return [data[0] for data in records if records]
+
+    def update_pantry(self):
+        for i, name in enumerate(self.grab_all_pantry_items()):
+            self.pantryTable.setRowCount(i + 1)
+            item_name = QtWidgets.QTableWidgetItem(name)
+            item_name.setText(name)
+            self.pantryTable.setItem(i, 0, item_name)
+
+    # Pantry Add Item
+
+    def get_item_from_text(self):
+        return self.addItemBox.text()
+
+    def get_gram_from_text(self):
+        return self.addGramsBox.text()
+
+    def add_item(self):
+        item = self.get_item_from_text()
+        gram = self.get_gram_from_text()
+        calories = 10
+        protein = 100
+        if item.isalpha() and gram.isnumeric():
+            db = sq.connect("/home/ioan/PycharmProjects/hackathon/src/pipeline/scran")
+            c = db.cursor()
+            c.execute("INSERT INTO main.registry VALUES (:calories,:protein,:name)",
+                      {'calories': calories, 'protein': protein, 'name': item})
+            db.close()
+        self.update_pantry()
+
+    # Get Todays Recipes
+    def get_all_today_recipes(self):
+
+        recipes = Pipeline(self.budget).process()
+        print(recipes)
+        return recipes
+
+    def update_today_meals(self):
+        self.clear_todays_meals()
+        for i, recipe in enumerate(self.get_all_today_recipes()):
+            self.todayTable.setRowCount(i + 1)
+            item_name = QtWidgets.QTableWidgetItem()
+            item_name.setText(recipe[0].name)
+            self.todayTable.setItem(i, 0, item_name)
+
+    def clear_todays_meals(self):
+        self.todayTable.clear()
+
+    # Get Tomorrows Recipes
+
+    def get_all_tommorow_recipes(self):
+        recipe_records = self.run_query("SELECT recipes.name FROM recipes")
+        return recipe_records
+
+    def update_tommorow_meals(self):
+        for i, recipe in enumerate(self.get_all_today_recipes()):
+            self.tommorowTable.setRowCount(i + 1)
+            item_name = QtWidgets.QTableWidgetItem(recipe)
+            item_name.setText(recipe)
+            self.tommorowTable.setItem(i, 0, item_name)
+
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "SCRAN"))
         self.todayLabel.setText(_translate("MainWindow", "Today"))
         item = self.todayTable.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "Recipes:"))
-        self.todayRecipe.setText(_translate("MainWindow", "Today's Recipes"))
-        self.budget.setPlaceholderText(_translate("MainWindow", "Enter your budget"))
+        self.todayRecipe.setText(_translate("MainWindow", "Today\'s Recipes"))
+        self.budgetBox.setPlaceholderText(_translate("MainWindow", "Enter your budget"))
+        self.updateButton.setText(_translate("MainWindow", "update"))
         self.tommorowLabel.setText(_translate("MainWindow", "Tommrow"))
-        self.tommorowRecipe.setText(_translate("MainWindow", "Tommorow's Recipes"))
+        self.tommorowRecipe.setText(_translate("MainWindow", "Tommorow\'s Recipes"))
         item = self.tommorowTable.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "Recipes:"))
         self.dayAfterLabel.setText(_translate("MainWindow", "Day After Tommorow"))
-        self.dayAfterRecipe.setText(
-            _translate("MainWindow", "Day After Tommorows Recipes")
-        )
+        self.dayAfterRecipe.setText(_translate("MainWindow", "Day After Tommorows Recipes"))
         item = self.dayAfterTable.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "Recipes:"))
         self.itemAddLabel.setText(_translate("MainWindow", "Item"))
@@ -351,45 +429,40 @@ class Ui(object):
         self.proteinAddLabel_3.setText(_translate("MainWindow", "Protein"))
         self.addProteinBox.setPlaceholderText(_translate("MainWindow", "Enter grams"))
         self.CaloriesAddLabel_5.setText(_translate("MainWindow", "Calories"))
-        self.addCaloriesBox.setPlaceholderText(
-            _translate("MainWindow", "Enter Calories")
-        )
-        self.editorTab.setTabText(
-            self.editorTab.indexOf(self.Add), _translate("MainWindow", "Add")
-        )
+        self.addCaloriesBox.setPlaceholderText(_translate("MainWindow", "Enter Calories"))
+        self.editorTab.setTabText(self.editorTab.indexOf(self.Add), _translate("MainWindow", "Add"))
         self.itemEditLabel.setText(_translate("MainWindow", "Item"))
         self.quantityEditLabel.setText(_translate("MainWindow", "Quantity"))
         self.editFromPantry.setSortingEnabled(True)
         self.editGramsBox.setPlaceholderText(_translate("MainWindow", "Enter grams"))
         self.confirmChangeButton.setText(_translate("MainWindow", "Confirm Change"))
-        self.editorTab.setTabText(
-            self.editorTab.indexOf(self.Edit), _translate("MainWindow", "Edit")
-        )
+        self.editorTab.setTabText(self.editorTab.indexOf(self.Edit), _translate("MainWindow", "Edit"))
         self.itemRemoveLabel.setText(_translate("MainWindow", "Item"))
         self.deleteFromPantry.setSortingEnabled(True)
         self.removeItemButton.setText(_translate("MainWindow", "Remove Item"))
-        self.editorTab.setTabText(
-            self.editorTab.indexOf(self.Remove), _translate("MainWindow", "Remove")
-        )
+        self.editorTab.setTabText(self.editorTab.indexOf(self.Remove), _translate("MainWindow", "Remove"))
         self.pantryTable.setSortingEnabled(True)
         item = self.pantryTable.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "ITEM"))
         item = self.pantryTable.horizontalHeaderItem(1)
         item.setText(_translate("MainWindow", "AMOUNT"))
-        self.pantryLabel.setText(
-            _translate(
-                "MainWindow",
-                '<html><head/><body><p><span style=" font-weight:600; text-decoration: underline;">Pantry</span></p></body></html>',
-            )
-        )
-        self.selectedRecipeLabel.setText(
-            _translate(
-                "MainWindow",
-                '<html><head/><body><p><span style=" font-weight:600; text-decoration: underline;">Selected Recipe</span></p></body></html>',
-            )
-        )
+        self.pantryLabel.setText(_translate("MainWindow",
+                                            "<html><head/><body><p><span style=\" font-weight:600; text-decoration: underline;\">Pantry</span></p></body></html>"))
+        self.selectedRecipeLabel.setText(_translate("MainWindow",
+                                                    "<html><head/><body><p><span style=\" font-weight:600; text-decoration: underline;\">Selected Recipe</span></p></body></html>"))
         item = self.selectedRecipeTable.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "ITEM"))
         item = self.selectedRecipeTable.horizontalHeaderItem(1)
         item.setText(_translate("MainWindow", "AMOUNT"))
         self.scranButton.setText(_translate("MainWindow", "Scranned"))
+
+
+if __name__ == "__main__":
+    import sys
+
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    sys.exit(app.exec_())
