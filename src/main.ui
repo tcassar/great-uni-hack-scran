@@ -1,0 +1,839 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>995</width>
+    <height>482</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>640</width>
+    <height>480</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>SCRAN</string>
+  </property>
+  <property name="tabShape">
+   <enum>QTabWidget::Triangular</enum>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QFrame" name="masterFrame">
+    <property name="geometry">
+     <rect>
+      <x>-10</x>
+      <y>0</y>
+      <width>1011</width>
+      <height>491</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_4">
+     <item>
+      <layout class="QVBoxLayout" name="masterLayout">
+       <item>
+        <widget class="QFrame" name="topFrame">
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <widget class="QWidget" name="horizontalLayoutWidget">
+          <property name="geometry">
+           <rect>
+            <x>-1</x>
+            <y>-1</y>
+            <width>981</width>
+            <height>221</height>
+           </rect>
+          </property>
+          <layout class="QHBoxLayout" name="topDivision">
+           <property name="spacing">
+            <number>10</number>
+           </property>
+           <property name="leftMargin">
+            <number>10</number>
+           </property>
+           <property name="topMargin">
+            <number>10</number>
+           </property>
+           <property name="rightMargin">
+            <number>10</number>
+           </property>
+           <property name="bottomMargin">
+            <number>10</number>
+           </property>
+           <item>
+            <widget class="QFrame" name="todayFrame">
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <widget class="QWidget" name="todayWidget" native="true">
+              <property name="geometry">
+               <rect>
+                <x>-1</x>
+                <y>-1</y>
+                <width>311</width>
+                <height>201</height>
+               </rect>
+              </property>
+              <widget class="QLabel" name="todayLabel">
+               <property name="geometry">
+                <rect>
+                 <x>120</x>
+                 <y>10</y>
+                 <width>51</width>
+                 <height>21</height>
+                </rect>
+               </property>
+               <property name="font">
+                <font>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                 <underline>true</underline>
+                </font>
+               </property>
+               <property name="text">
+                <string>Today</string>
+               </property>
+              </widget>
+              <widget class="QTableWidget" name="todayTable">
+               <property name="geometry">
+                <rect>
+                 <x>10</x>
+                 <y>70</y>
+                 <width>291</width>
+                 <height>120</height>
+                </rect>
+               </property>
+               <property name="verticalScrollBarPolicy">
+                <enum>Qt::ScrollBarAlwaysOn</enum>
+               </property>
+               <property name="horizontalScrollBarPolicy">
+                <enum>Qt::ScrollBarAlwaysOff</enum>
+               </property>
+               <property name="sizeAdjustPolicy">
+                <enum>QAbstractScrollArea::AdjustToContents</enum>
+               </property>
+               <property name="textElideMode">
+                <enum>Qt::ElideRight</enum>
+               </property>
+               <property name="showGrid">
+                <bool>true</bool>
+               </property>
+               <property name="gridStyle">
+                <enum>Qt::SolidLine</enum>
+               </property>
+               <property name="columnCount">
+                <number>1</number>
+               </property>
+               <column>
+                <property name="text">
+                 <string>Recipes:</string>
+                </property>
+               </column>
+              </widget>
+              <widget class="QLabel" name="todayRecipe">
+               <property name="geometry">
+                <rect>
+                 <x>20</x>
+                 <y>40</y>
+                 <width>131</width>
+                 <height>21</height>
+                </rect>
+               </property>
+               <property name="text">
+                <string>Today's Recipes</string>
+               </property>
+              </widget>
+             </widget>
+            </widget>
+           </item>
+           <item>
+            <widget class="QFrame" name="tommorowFrame">
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <widget class="QWidget" name="tommorowWidget" native="true">
+              <property name="geometry">
+               <rect>
+                <x>0</x>
+                <y>0</y>
+                <width>311</width>
+                <height>201</height>
+               </rect>
+              </property>
+              <widget class="QLabel" name="tommorowLabel">
+               <property name="geometry">
+                <rect>
+                 <x>120</x>
+                 <y>10</y>
+                 <width>91</width>
+                 <height>21</height>
+                </rect>
+               </property>
+               <property name="font">
+                <font>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                 <underline>true</underline>
+                </font>
+               </property>
+               <property name="text">
+                <string>Tommrow</string>
+               </property>
+              </widget>
+              <widget class="QLabel" name="tommorowRecipe">
+               <property name="geometry">
+                <rect>
+                 <x>10</x>
+                 <y>40</y>
+                 <width>171</width>
+                 <height>21</height>
+                </rect>
+               </property>
+               <property name="text">
+                <string>Tommorow's Recipes</string>
+               </property>
+              </widget>
+              <widget class="QTableWidget" name="tommorowTable">
+               <property name="geometry">
+                <rect>
+                 <x>10</x>
+                 <y>70</y>
+                 <width>291</width>
+                 <height>120</height>
+                </rect>
+               </property>
+               <property name="verticalScrollBarPolicy">
+                <enum>Qt::ScrollBarAlwaysOn</enum>
+               </property>
+               <property name="horizontalScrollBarPolicy">
+                <enum>Qt::ScrollBarAlwaysOff</enum>
+               </property>
+               <property name="sizeAdjustPolicy">
+                <enum>QAbstractScrollArea::AdjustToContents</enum>
+               </property>
+               <property name="textElideMode">
+                <enum>Qt::ElideRight</enum>
+               </property>
+               <property name="showGrid">
+                <bool>true</bool>
+               </property>
+               <property name="gridStyle">
+                <enum>Qt::SolidLine</enum>
+               </property>
+               <property name="columnCount">
+                <number>1</number>
+               </property>
+               <column>
+                <property name="text">
+                 <string>Recipes:</string>
+                </property>
+               </column>
+              </widget>
+             </widget>
+            </widget>
+           </item>
+           <item>
+            <widget class="QFrame" name="dayAfterFrame">
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <widget class="QWidget" name="dayAfterWidget" native="true">
+              <property name="geometry">
+               <rect>
+                <x>-1</x>
+                <y>-1</y>
+                <width>311</width>
+                <height>201</height>
+               </rect>
+              </property>
+              <widget class="QLabel" name="dayAfterLabel">
+               <property name="geometry">
+                <rect>
+                 <x>80</x>
+                 <y>10</y>
+                 <width>181</width>
+                 <height>21</height>
+                </rect>
+               </property>
+               <property name="font">
+                <font>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                 <underline>true</underline>
+                </font>
+               </property>
+               <property name="text">
+                <string>Day After Tommorow</string>
+               </property>
+              </widget>
+              <widget class="QLabel" name="dayAfterRecipe">
+               <property name="geometry">
+                <rect>
+                 <x>10</x>
+                 <y>40</y>
+                 <width>251</width>
+                 <height>21</height>
+                </rect>
+               </property>
+               <property name="text">
+                <string>Day After Tommorows Recipes</string>
+               </property>
+              </widget>
+              <widget class="QTableWidget" name="dayAfterTable">
+               <property name="geometry">
+                <rect>
+                 <x>10</x>
+                 <y>70</y>
+                 <width>291</width>
+                 <height>120</height>
+                </rect>
+               </property>
+               <property name="verticalScrollBarPolicy">
+                <enum>Qt::ScrollBarAlwaysOn</enum>
+               </property>
+               <property name="horizontalScrollBarPolicy">
+                <enum>Qt::ScrollBarAlwaysOff</enum>
+               </property>
+               <property name="sizeAdjustPolicy">
+                <enum>QAbstractScrollArea::AdjustToContents</enum>
+               </property>
+               <property name="textElideMode">
+                <enum>Qt::ElideRight</enum>
+               </property>
+               <property name="showGrid">
+                <bool>true</bool>
+               </property>
+               <property name="gridStyle">
+                <enum>Qt::SolidLine</enum>
+               </property>
+               <property name="columnCount">
+                <number>1</number>
+               </property>
+               <column>
+                <property name="text">
+                 <string>Recipes:</string>
+                </property>
+               </column>
+              </widget>
+             </widget>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="bottomFrame">
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <widget class="QWidget" name="horizontalLayoutWidget_2">
+          <property name="geometry">
+           <rect>
+            <x>-1</x>
+            <y>-1</y>
+            <width>981</width>
+            <height>231</height>
+           </rect>
+          </property>
+          <layout class="QHBoxLayout" name="bottomDivision">
+           <property name="spacing">
+            <number>10</number>
+           </property>
+           <property name="leftMargin">
+            <number>10</number>
+           </property>
+           <property name="topMargin">
+            <number>10</number>
+           </property>
+           <property name="rightMargin">
+            <number>10</number>
+           </property>
+           <property name="bottomMargin">
+            <number>10</number>
+           </property>
+           <item>
+            <widget class="QFrame" name="foodlListFrame">
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <widget class="QFrame" name="listEditFrame">
+              <property name="enabled">
+               <bool>true</bool>
+              </property>
+              <property name="geometry">
+               <rect>
+                <x>664</x>
+                <y>0</y>
+                <width>291</width>
+                <height>211</height>
+               </rect>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
+              <widget class="QWidget" name="editMenu" native="true">
+               <property name="geometry">
+                <rect>
+                 <x>10</x>
+                 <y>10</y>
+                 <width>271</width>
+                 <height>191</height>
+                </rect>
+               </property>
+               <widget class="QTabWidget" name="editorTab">
+                <property name="geometry">
+                 <rect>
+                  <x>0</x>
+                  <y>0</y>
+                  <width>401</width>
+                  <height>191</height>
+                 </rect>
+                </property>
+                <property name="focusPolicy">
+                 <enum>Qt::TabFocus</enum>
+                </property>
+                <property name="layoutDirection">
+                 <enum>Qt::LeftToRight</enum>
+                </property>
+                <property name="tabPosition">
+                 <enum>QTabWidget::North</enum>
+                </property>
+                <property name="tabShape">
+                 <enum>QTabWidget::Rounded</enum>
+                </property>
+                <property name="currentIndex">
+                 <number>1</number>
+                </property>
+                <property name="elideMode">
+                 <enum>Qt::ElideNone</enum>
+                </property>
+                <widget class="QWidget" name="Add">
+                 <property name="cursor">
+                  <cursorShape>UpArrowCursor</cursorShape>
+                 </property>
+                 <attribute name="title">
+                  <string>Add</string>
+                 </attribute>
+                 <widget class="QLabel" name="itemAddLabel">
+                  <property name="geometry">
+                   <rect>
+                    <x>10</x>
+                    <y>20</y>
+                    <width>80</width>
+                    <height>21</height>
+                   </rect>
+                  </property>
+                  <property name="text">
+                   <string>Item</string>
+                  </property>
+                 </widget>
+                 <widget class="QLineEdit" name="addItemBox">
+                  <property name="geometry">
+                   <rect>
+                    <x>100</x>
+                    <y>10</y>
+                    <width>161</width>
+                    <height>29</height>
+                   </rect>
+                  </property>
+                  <property name="placeholderText">
+                   <string>Enter an Item</string>
+                  </property>
+                 </widget>
+                 <widget class="QLabel" name="quantityAddLabel_2">
+                  <property name="geometry">
+                   <rect>
+                    <x>10</x>
+                    <y>60</y>
+                    <width>80</width>
+                    <height>21</height>
+                   </rect>
+                  </property>
+                  <property name="text">
+                   <string>Quantity</string>
+                  </property>
+                 </widget>
+                 <widget class="QLineEdit" name="addGramsBox">
+                  <property name="geometry">
+                   <rect>
+                    <x>102</x>
+                    <y>50</y>
+                    <width>161</width>
+                    <height>29</height>
+                   </rect>
+                  </property>
+                  <property name="placeholderText">
+                   <string>Enter grams</string>
+                  </property>
+                 </widget>
+                 <widget class="QPushButton" name="addItemButton">
+                  <property name="geometry">
+                   <rect>
+                    <x>80</x>
+                    <y>100</y>
+                    <width>106</width>
+                    <height>30</height>
+                   </rect>
+                  </property>
+                  <property name="text">
+                   <string>Add Item</string>
+                  </property>
+                  <property name="default">
+                   <bool>false</bool>
+                  </property>
+                  <property name="flat">
+                   <bool>false</bool>
+                  </property>
+                 </widget>
+                </widget>
+                <widget class="QWidget" name="Edit">
+                 <attribute name="title">
+                  <string>Edit</string>
+                 </attribute>
+                 <widget class="QLabel" name="itemEditLabel">
+                  <property name="geometry">
+                   <rect>
+                    <x>10</x>
+                    <y>20</y>
+                    <width>80</width>
+                    <height>21</height>
+                   </rect>
+                  </property>
+                  <property name="text">
+                   <string>Item</string>
+                  </property>
+                 </widget>
+                 <widget class="QLabel" name="quantityEditLabel">
+                  <property name="geometry">
+                   <rect>
+                    <x>10</x>
+                    <y>60</y>
+                    <width>80</width>
+                    <height>21</height>
+                   </rect>
+                  </property>
+                  <property name="text">
+                   <string>Quantity</string>
+                  </property>
+                 </widget>
+                 <widget class="QListWidget" name="editFromPantry">
+                  <property name="geometry">
+                   <rect>
+                    <x>100</x>
+                    <y>10</y>
+                    <width>161</width>
+                    <height>31</height>
+                   </rect>
+                  </property>
+                  <property name="tabKeyNavigation">
+                   <bool>true</bool>
+                  </property>
+                  <property name="showDropIndicator" stdset="0">
+                   <bool>true</bool>
+                  </property>
+                  <property name="alternatingRowColors">
+                   <bool>true</bool>
+                  </property>
+                  <property name="isWrapping" stdset="0">
+                   <bool>false</bool>
+                  </property>
+                  <property name="uniformItemSizes">
+                   <bool>true</bool>
+                  </property>
+                  <property name="sortingEnabled">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                 <widget class="QLineEdit" name="editGramsBox">
+                  <property name="geometry">
+                   <rect>
+                    <x>100</x>
+                    <y>50</y>
+                    <width>161</width>
+                    <height>29</height>
+                   </rect>
+                  </property>
+                  <property name="placeholderText">
+                   <string>Enter grams</string>
+                  </property>
+                 </widget>
+                 <widget class="QPushButton" name="confirmChangeButton">
+                  <property name="geometry">
+                   <rect>
+                    <x>70</x>
+                    <y>100</y>
+                    <width>141</width>
+                    <height>30</height>
+                   </rect>
+                  </property>
+                  <property name="text">
+                   <string>Confirm Change</string>
+                  </property>
+                  <property name="default">
+                   <bool>false</bool>
+                  </property>
+                  <property name="flat">
+                   <bool>false</bool>
+                  </property>
+                 </widget>
+                </widget>
+                <widget class="QWidget" name="Remove">
+                 <attribute name="title">
+                  <string>Remove</string>
+                 </attribute>
+                 <widget class="QLabel" name="itemRemoveLabel">
+                  <property name="geometry">
+                   <rect>
+                    <x>10</x>
+                    <y>20</y>
+                    <width>80</width>
+                    <height>21</height>
+                   </rect>
+                  </property>
+                  <property name="text">
+                   <string>Item</string>
+                  </property>
+                 </widget>
+                 <widget class="QListWidget" name="deleteFromPantry">
+                  <property name="geometry">
+                   <rect>
+                    <x>100</x>
+                    <y>10</y>
+                    <width>151</width>
+                    <height>31</height>
+                   </rect>
+                  </property>
+                  <property name="tabKeyNavigation">
+                   <bool>true</bool>
+                  </property>
+                  <property name="showDropIndicator" stdset="0">
+                   <bool>true</bool>
+                  </property>
+                  <property name="alternatingRowColors">
+                   <bool>true</bool>
+                  </property>
+                  <property name="isWrapping" stdset="0">
+                   <bool>false</bool>
+                  </property>
+                  <property name="uniformItemSizes">
+                   <bool>true</bool>
+                  </property>
+                  <property name="sortingEnabled">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                 <widget class="QPushButton" name="removeItemButton">
+                  <property name="geometry">
+                   <rect>
+                    <x>70</x>
+                    <y>90</y>
+                    <width>141</width>
+                    <height>30</height>
+                   </rect>
+                  </property>
+                  <property name="text">
+                   <string>Remove Item</string>
+                  </property>
+                  <property name="default">
+                   <bool>false</bool>
+                  </property>
+                  <property name="flat">
+                   <bool>false</bool>
+                  </property>
+                 </widget>
+                </widget>
+               </widget>
+              </widget>
+             </widget>
+             <widget class="QFrame" name="pantryTableFrame">
+              <property name="geometry">
+               <rect>
+                <x>339</x>
+                <y>9</y>
+                <width>321</width>
+                <height>191</height>
+               </rect>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
+              <widget class="QTableWidget" name="pantryTable">
+               <property name="geometry">
+                <rect>
+                 <x>10</x>
+                 <y>30</y>
+                 <width>301</width>
+                 <height>151</height>
+                </rect>
+               </property>
+               <property name="verticalScrollBarPolicy">
+                <enum>Qt::ScrollBarAlwaysOn</enum>
+               </property>
+               <property name="sizeAdjustPolicy">
+                <enum>QAbstractScrollArea::AdjustToContents</enum>
+               </property>
+               <property name="gridStyle">
+                <enum>Qt::SolidLine</enum>
+               </property>
+               <property name="sortingEnabled">
+                <bool>true</bool>
+               </property>
+               <property name="rowCount">
+                <number>0</number>
+               </property>
+               <property name="columnCount">
+                <number>2</number>
+               </property>
+               <attribute name="horizontalHeaderCascadingSectionResizes">
+                <bool>false</bool>
+               </attribute>
+               <column>
+                <property name="text">
+                 <string>ITEM</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>AMOUNT</string>
+                </property>
+               </column>
+              </widget>
+              <widget class="QLabel" name="pantryLabel">
+               <property name="geometry">
+                <rect>
+                 <x>10</x>
+                 <y>10</y>
+                 <width>80</width>
+                 <height>21</height>
+                </rect>
+               </property>
+               <property name="text">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Pantry&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
+              </widget>
+             </widget>
+             <widget class="QFrame" name="selectedRecipeFrame">
+              <property name="geometry">
+               <rect>
+                <x>10</x>
+                <y>10</y>
+                <width>321</width>
+                <height>191</height>
+               </rect>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
+              <widget class="QLabel" name="pantryLabel_2">
+               <property name="geometry">
+                <rect>
+                 <x>10</x>
+                 <y>10</y>
+                 <width>141</width>
+                 <height>21</height>
+                </rect>
+               </property>
+               <property name="text">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Selected Recipe&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
+              </widget>
+              <widget class="QTableWidget" name="todayTable_2">
+               <property name="geometry">
+                <rect>
+                 <x>10</x>
+                 <y>40</y>
+                 <width>291</width>
+                 <height>141</height>
+                </rect>
+               </property>
+               <property name="verticalScrollBarPolicy">
+                <enum>Qt::ScrollBarAlwaysOn</enum>
+               </property>
+               <property name="horizontalScrollBarPolicy">
+                <enum>Qt::ScrollBarAlwaysOff</enum>
+               </property>
+               <property name="sizeAdjustPolicy">
+                <enum>QAbstractScrollArea::AdjustToContents</enum>
+               </property>
+               <property name="textElideMode">
+                <enum>Qt::ElideRight</enum>
+               </property>
+               <property name="showGrid">
+                <bool>true</bool>
+               </property>
+               <property name="gridStyle">
+                <enum>Qt::SolidLine</enum>
+               </property>
+               <property name="columnCount">
+                <number>2</number>
+               </property>
+               <column>
+                <property name="text">
+                 <string>ITEM</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>AMOUNT</string>
+                </property>
+               </column>
+              </widget>
+             </widget>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+ </widget>
+ <tabstops>
+  <tabstop>pantryTable</tabstop>
+  <tabstop>editorTab</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>
