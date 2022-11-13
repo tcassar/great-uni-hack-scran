@@ -82,3 +82,6 @@ JOIN registry r on r.id = pantry.id"""
         for ing in ing_data:
             self.ingredients.append(Ingredient(*ing))
 
+    def update_pantry(self):
+        ...
+

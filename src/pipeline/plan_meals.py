@@ -4,6 +4,9 @@ from src.engine import graph, knapsack
 
 
 class Pipeline:
+    """To get list of recipes:
+        `recipes = Pipeline().process()`
+        """
 
     def __init__(self, budget=20000):
 
@@ -20,24 +23,24 @@ class Pipeline:
         """Assigns cost and value to recipes depending on what is currently
         in the pantry"""
 
-        print(self.pantry.ingredients, end='\n\n')
-
         for recipe in self.cb.recipes:
             cost = 0
             for ingredient in recipe.ingredients:
                 if pantry_ingredient := [i for i in self.pantry.ingredients if i == ingredient]:
                     if pantry_ingredient[0].mass >= ingredient.mass:
                         # cost of ingredient is 0 as we have enough in pantry
+                        pantry_ingredient[0].mass -= ingredient.mass
                         continue
                     else:
                         # otherwise we need to buy stuff
                         cost += ingredient.price
-                        pantry_ingredient[0].mass += ingredient.packet_size
+                        pantry_ingredient[0].mass += ingredient.packet_size - ingredient.mass
                 else:
                     new = ingredient
-                    new.mass = new.packet_size
+                    new.mass = new.packet_size - ingredient.mass
                     cost += new.price
                     self.pantry.ingredients.append(new)
+
             recipe.cost = cost
             print(f"{recipe.name} will cost {cost} and have a value of {recipe.value}")
 
@@ -58,6 +61,11 @@ class Pipeline:
         return kp.solve_kp()
 
     def _items_to_recipes(self):
-        self._assign_cost()
+        items = self._knapsack()
 
+        self.cb.next_days.append(*[[recipe for recipe in self.cb.recipes if recipe.name == item.label] for item in items])
 
+    def process(self) -> list[schemas.Recipe]:
+        """Returns next few days worth of recipes"""
+        self._items_to_recipes()
+        return self.cb.next_days

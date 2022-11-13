@@ -70,7 +70,6 @@ class DAG:
         if g.src is None:
             raise GraphNotBuiltError
 
-        print(graph.dot.source)
 
         # enqueue src node
         q = graph.Queue([g.src], no_dup=True)
