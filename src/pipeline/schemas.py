@@ -35,6 +35,11 @@ class Recipe:
     ingredients: tuple[Ingredient] = field(default_factory=lambda: [])
     cost: int = -1
 
+    @property
+    def value(self):
+        """Value is protein / calories ratio (*100, so we can round and use integer weights in graph"""
+        return sum([round(i.protein / i.calories * 100) for i in self.ingredients]) if self.ingredients else -1
+
 
 @dataclass
 class CookBook:

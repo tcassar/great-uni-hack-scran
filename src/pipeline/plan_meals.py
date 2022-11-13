@@ -36,4 +36,4 @@ class Pipeline:
                     cost += new.price
                     self.pantry.ingredients.append(new)
 
-            print(f"{recipe.name} will cost {cost}")
+            print(f"{recipe.name} will cost {cost} and have a value of {recipe.value}")
